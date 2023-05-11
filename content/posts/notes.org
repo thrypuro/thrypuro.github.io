@@ -1,0 +1,91 @@
+#+title: Returning Oriented Programming
+#+description: Some notes I wrote on ROP chains
+#+type: post
+#+date: <2023-05-11 Thu>
+
+* Data Execution Prevention
+DEP is used to prevent executing code in memory/stack. This is done by marking the pages as read/write/execute flag. If a spot in memory are read/write, you cant just set rip to a spot in the memory and jump to it as it's no longer possible to do so.
+
+Other exploitation techniques had to be developed in-order for exploitation to be possible. ROP being one of them.
+
+* Return oriented programming
+
+ROP is a technique used to commonly bypass DEP (Data Execution Prevention). The technique is done commonly by using snippets of code called gadgets and then chaining them together to for a exploit. These snippets of code have 'ret' instruction at their end.
+A way to find rop gadgets in a binary, look at the assembly the program. For eg, run
+
+#+begin_src bash
+objdump -M intel -d binary | grep "ret"
+#+end_src
+
+#+begin_src asm
+pop rdi
+ret
+#+end_src
+This snippet of gadget, sets the rdi register to the next element in the stack. Best way to visualise this. Say I overwrote a return address then the stack layout around the return address would look something like this.
+
+#+begin_src asm
+0x7fffffffedd8:     0x00000000004008e4 ; --[ Gadget ( pop rdi; ret )
+0x7fffffffede0:     0x00007fffffffeeb8 ;--| Gadget Effect (rdi will equal this value)
+0x7fffffffede8:     0x00007fffffffeeb8 ;--| Gadget Effect (rip will equal this value i.e. the ret instruction)
+0x7fffffffedf0:     0x00007f0000262030 ; --[ rsp points here after gadget execution eg: exit
+#+end_src
+
+The important part is what you set in the next 2 values to be a syscall you would want to call. For example, you can call system and then '/bin/sh' from the libc using a ret2libc technique.
+
+* A little more advanced chain
+
+Lets build a chain that manually executes a syscall. In this section we will execute following C code in rop chain,
+#+begin_src C
+execve("/bin/sh\x00", NULL, NULL)
+#+end_src
+
+Here's this translated in a ROP chain
+
+#+begin_src asm
+    pop rdi ; set this to "/bin/sh"
+    ret
+    pop rsi ; set this to NULL
+    ret
+    pop rdx ; set this to NULL
+    ret
+    pop rax ; set this to execve syscall 59
+    ret
+    syscall ; call execve
+    ret
+#+end_src
+
+
+In the 64 bits stack, it would look something like this.
+
+#+begin_src asm
+0x7fffffffedd8:     0x0000000000400af5 ; --[ Gadget ( pop rdi; ret )
+0x7fffffffede0:     0x00007f00005b8d57 ; --| Gadget Effect (rdi will equal this value)
+0x7fffffffede8:     0x0000000000400af7 ; --[ Gadget ( pop rsi; ret )
+0x7fffffffedf0:     0x0000000000000000 ; --| Gadget Effect (rsi will equal this value)
+0x7fffffffedf8:     0x0000000000400af9 ; --[ Gadget ( pop rdx; ret )
+0x7fffffffee00:     0x0000000000000000 ;--| Gadget Effect (rdx will equal this value)
+0x7fffffffee08:     0x0000000000400afb ;--[ Gadget ( pop rax; ret )
+0x7fffffffee10:     0x000000000000003b ;--| Gadget Effect (rax will equal this value)
+0x7fffffffee18:     0x0000000000400afd ;--[ Gadget ( syscall; ret )
+0x7fffffffee20:     0x0000000000000000 ;--| Gadget Effect (rip will equal this value)
+0x7fffffffee28:     0x0000000000000000 ;--[ rsp points here after gadget execution
+#+end_src
+
+
+* Stack pivots
+
+There's not always freedom to use things beyond the stack, for example there might be a stack cookie. The technique of pivoting the stack is common to do. For example,
+
+#+begin_src asm
+pop rsp
+ret
+#+end_src
+
+You set the value of the stack pointer such that you set it to an area where you have space to for example, later in the buffer or earlier where you might control. Then you do the usual rop-fu.
+
+
+Other stack pivots are,
+
+1) 'add/sub $rsp' : you add or subtract the point up and down.
+2) 'leave; ret'  : we know leave' is equivalent to 'mov $rsp, $rbp;pop $rbp
+3) 'xchg '
