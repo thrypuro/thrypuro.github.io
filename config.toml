@@ -1,0 +1,82 @@
+baseURL = "https://gokarna-hugo.netlify.app"
+title = "Thrypuro"
+theme = "gokarna"
+languageCode = "en"
+defaultContentLanguage = "en"
+enableEmoji = true
+enableRobotsTXT = true
+
+# Choose one of emacs, trac or perldoc
+pygmentsStyle = "dracula"
+
+[params]
+  footer = "Thrypuro"
+  description = "Interests :: Computer Science → Mathematics   →  Cybersecurity → OK()"
+  avatarURL = "/images/isaac.webp"
+  AvatarAltText = "avatar"
+  avatarSize = "size-l"
+
+  customHeadHTML = """
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
+      });
+    </script>
+  """
+  socialIcons = [
+    {name = "twitter", url = "https://twitter.com/thrypuro"},
+    {name = "linkedin", url = "https://www.linkedin.com/in/madhav-b-9165911bb/"},
+    {name = "email", url = "mailto:madhav.benoi.manu@gmail.com"}
+  ]
+  metaKeywords = ["blog", "gokarna", "hugo"]
+
+[menu]
+  [[menu.main]]
+    name = " Home"
+    pre = "λ  "
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Posts"
+    pre = "π "
+    url = "/posts/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Projects"
+    pre = "Ψ"
+
+    url = "/projects/"
+    weight = 3
+
+  [[menu.main]]
+    name = "ϕ About"
+    url = "/about-me/"
+    weight = 4
+
+
+[[menu.main]]
+    identifier = "github"
+    pre = "<span data-feather='github'></span>"
+    url = "https://github.com/thrypuro"
+    weight = 5
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 4
+    ordered = false
