@@ -1,10 +1,7 @@
-#+title: #+title: Returning Oriented Programming
+#+title: Return Oriented Programming
 #+description: Some notes I wrote on ROP chains
-#+type: post
-#+date: <2023-05-11 Thu>
-#+show
-
-
+#+type: postsw
+#+date: <2023-05-13 Sat>
 
 * Data Execution Prevention
 DEP is used to prevent executing code in memory/stack. This is done by marking the pages with read/write/execute flags. If a spot in memory is read/write, you can't just set rip to a spot in the memory and jump to it because it's no longer possible to do so.
@@ -104,7 +101,7 @@ Other stack pivots are,
 In scenarios where we have control over rbp, we can use a gadget like this to make more space with the gadget.
 
 3) 'xchg rsp'
-   This can be
+   This can be used to change exchange or swap the value of the stack pointer with any other registers.
 
 
 * How to find rop gadgets?
@@ -115,5 +112,4 @@ Commonly used tools for rop gadgets are ropper. There are other tools but ropper
 ropper file=binary find="pop"
 
 #+end_src
-
 The above code will atempt to find all the pop instruction in the assembly.
