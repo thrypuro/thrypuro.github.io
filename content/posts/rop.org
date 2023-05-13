@@ -1,17 +1,20 @@
-#+title: Returning Oriented Programming
+#+title: #+title: Returning Oriented Programming
 #+description: Some notes I wrote on ROP chains
 #+type: post
 #+date: <2023-05-11 Thu>
+#+show
+
+
 
 * Data Execution Prevention
-DEP is used to prevent executing code in memory/stack. This is done by marking the pages as read/write/execute flag. If a spot in memory are read/write, you cant just set rip to a spot in the memory and jump to it as it's no longer possible to do so.
+DEP is used to prevent executing code in memory/stack. This is done by marking the pages with read/write/execute flags. If a spot in memory is read/write, you can't just set rip to a spot in the memory and jump to it because it's no longer possible to do so.
 
-Other exploitation techniques had to be developed in-order for exploitation to be possible. ROP being one of them.
+Other exploitation techniques had to be developed in order for exploitation to be possible. ROP being one of them.
 
 * Return oriented programming
 
-ROP is a technique used to commonly bypass DEP (Data Execution Prevention). The technique is done commonly by using snippets of code called gadgets and then chaining them together to for a exploit. These snippets of code have 'ret' instruction at their end.
-A way to find rop gadgets in a binary, look at the assembly the program. For eg, run
+ROP is a technique commonly used to bypass DEP (Data Execution Prevention). The technique is commonly done by using snippets of code called gadgets and then chaining them together to form an exploit. These snippets of code have a 'ret' instruction at their end.
+A way to find ROP gadgets in a binary is to look at the assembly of the program. For example, run:
 
 #+begin_src bash
 objdump -M intel -d binary | grep "ret"
@@ -21,7 +24,8 @@ objdump -M intel -d binary | grep "ret"
 pop rdi
 ret
 #+end_src
-This snippet of gadget, sets the rdi register to the next element in the stack. Best way to visualise this. Say I overwrote a return address then the stack layout around the return address would look something like this.
+
+This snippet of gadget sets the rdi register to the next element in the stack. The best way to visualize this is by considering a scenario where a return address is overwritten. The stack layout around the return address would look something like this:
 
 #+begin_src asm
 0x7fffffffedd8:     0x00000000004008e4 ; --[ Gadget ( pop rdi; ret )
@@ -35,11 +39,12 @@ The important part is what you set in the next 2 values to be a syscall you woul
 * A little more advanced chain
 
 Lets build a chain that manually executes a syscall. In this section we will execute following C code in rop chain,
+
 #+begin_src C
 execve("/bin/sh\x00", NULL, NULL)
 #+end_src
 
-Here's this translated in a ROP chain
+Here's the assembly we write in rop
 
 #+begin_src asm
     pop rdi ; set this to "/bin/sh"
@@ -87,5 +92,28 @@ You set the value of the stack pointer such that you set it to an area where you
 Other stack pivots are,
 
 1) 'add/sub $rsp' : you add or subtract the point up and down.
-2) 'leave; ret'  : we know leave' is equivalent to 'mov $rsp, $rbp;pop $rbp
-3) 'xchg '
+2) 'leave; ret'  :
+
+   We know leave' is equivalent to
+
+   #+begin_src asm
+    mov rsp,rbp
+    pop rbp
+   #+end_src
+
+In scenarios where we have control over rbp, we can use a gadget like this to make more space with the gadget.
+
+3) 'xchg rsp'
+   This can be
+
+
+* How to find rop gadgets?
+
+Commonly used tools for rop gadgets are ropper. There are other tools but ropper is the one I am most familiar with.
+
+#+begin_src bash
+ropper file=binary find="pop"
+
+#+end_src
+
+The above code will atempt to find all the pop instruction in the assembly.
