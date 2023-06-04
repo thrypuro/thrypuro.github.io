@@ -1,0 +1,303 @@
+#+title:  Author writeup for pwnEd4 Riscy Business
+#+description: This challenge was painful to implement, might as well document a writeup lol
+#+weight: 2
+#+type: post
+#+date: <2023-04-05 Wed>
+
+* Warning
+I will be fully spoiling this challenge, while I won't go over the reverse engineering aspect of it. As it is tedious and time consuming, especially when it is in risc-v architecture. I will be revealing the source-code and the solution to this.
+
+If you would like to try the challenge yourself, it's here , https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/riscy_business
+
+
+* What is it?
+The source code for the challenge can be found at
+https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/source.c
+
+This is secretly a crypto challenge in disguise! I have trolled the reverse engineering enjoyers :sunglasses:
+
+Let's start by looking at the main function.
+
+* Main function
+
+#+begin_src C
+int main()
+{
+  printf("Give me the flag and I'll run my RISCY flag-checker:");
+	char input[50];
+	fgets(input, 50, stdin);
+
+	if (strlen(input) != 49) {
+		printf("You're shearing me apart...");
+		exit(-1);
+	}
+
+    uint64_t input_flag[8];
+    // convert every 7 bytes to a little endian uint64_t
+    input_flag[0] = 0;
+    input_flag[0] += (uint64_t)input[7*0 + 0] << (8*0);
+    input_flag[0] += (uint64_t)input[7*0 + 1] << (8*1);
+    input_flag[0] += (uint64_t)input[7*0 + 2] << (8*2);
+    input_flag[0] += (uint64_t)input[7*0 + 3] << (8*3);
+    input_flag[0] += (uint64_t)input[7*0 + 4] << (8*4);
+    input_flag[0] += (uint64_t)input[7*0 + 5] << (8*5);
+    input_flag[0] += (uint64_t)input[7*0 + 6] << (8*6);
+   .
+ ..
+}
+
+#+end_src
+We can see that the program asks you to input the flag which seems like it's going to be checked with some random values and the flag has to be the length 49.
+
+We see that, every 7 byte of the flag is converted to a little endian 64 bit number. I expanded the loop because it looks very gross to disassemble as it turns it into very cursed assembly :P (I have been told this can be done by setting a flag in gcc, I have yet to confirm this)
+
+After all the characters of the flag have been converted into 64 bit numbers.
+
+We see the comparison here
+
+#+begin_src C
+
+    for (int i = 0; i<7; i++){
+        // printf("Matrix %u  for exp %u : \n " , input_flag[i], 2);
+        uint64_t * l  = malloc(7*7*sizeof(uint64_t));
+        array_exp(beeg_yoshi,input_flag[i],p , l );
+        // printf("Matrix %u  for exp %llu : \n " , i, input_flag[i]);
+        // ^ initial
+        uint64_t l2 [7][7];
+        // print l
+         printf("{");
+        for (int i = 0; i < 7; i++) {
+            printf("{");
+            for (int j = 0; j < 7; j++) {
+                l2[i][j] = l[7*i + j];
+                if (j == 6) {
+                    printf("%llu", l2[i][j]);
+                }
+                else {
+                    printf("%llu, ", l2[i][j]);
+                }
+            }
+            printf("},\n");
+        }
+
+#+end_src
+
+It's calling the array_exp function with each part of the flag as one of the arguments for the function. This is an encryption.
+
+While the function name here gives you a hint, decompiling this without symbols is not fun. (Sorry for stripping the binary :sob:)
+
+After the encryption is done, each 2d array is checked against some ciphertexts, the usual rev challenge shenanigans.
+
+Let's look at what array_exp implements.
+
+* Array Exponentiation??? that's not a group??
+
+#+begin_src C
+// count bits a uint64_t
+int count_bits(uint64_t n)
+{
+    int count = 0;
+    while (n)
+    {
+        count += 1;
+        n >>= 1;
+    }
+    return count;
+}
+
+void array_exp( uint64_t l0[7][7], uint64_t e ,uint64_t p , uint64_t * l) {
+
+    // uint64_t l = l0;
+    // ^ deep copy l0 to l
+
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+            l[7*i + j] = l0[i][j];
+        }
+    }
+    uint64_t l4[7][7];
+
+    // copy identity matrix to l4
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+            if (i == j) {
+                l4[i][j] = 1;
+            } else {
+                l4[i][j] = 0;
+            }
+        }
+    }
+    // printf("%d", count_bits(e));
+    int exp = count_bits(e);
+    while (e>1) {
+
+        if ( e % 2 == 1 ) {
+            uint64_t * l2 = malloc(7*7*sizeof(uint64_t));
+            array_mul(*l4,l,l2,p ,7,7,7);
+
+
+            // l = array_mul(l,l0,p,7,7,7);
+            // deep copy l2 to l
+            for (int ii = 0; ii < 7; ii++) {
+                for (int k = 0; k < 7; k++) {
+                    l4[ii][k] = l2[7*ii + k];
+                }
+            }
+            e = (e-1);
+        }
+
+        uint64_t * l1 = malloc(7*7*sizeof(uint64_t));
+        array_mul(l,l,l1,p ,7,7,7);
+        // printf("\n exp is %d \n", e);
+        // print l1 to see if it is correct
+        // for (int k = 0; k < 7; k++) {
+        //     for (int jj = 0; jj < 7; jj++) {
+        //         printf("%llu ,  ", *l0[7*k + jj]);
+        //     }
+        // }
+
+        // deep copy l1 to l
+        for (int ii = 0; ii < 7; ii++) {
+            for (int k = 0; k < 7; k++) {
+                l[ 7*ii + k ] = l1[7*ii + k];
+            }
+
+        }
+        e = e >> 1;
+
+
+    }
+    uint64_t * l3 = malloc(7*7*sizeof(uint64_t));
+    // matrix multiply l and l4
+    array_mul(*l4,l,l3,p ,7,7,7);
+    // deep copy l1 to l
+        for (int ii = 0; ii < 7; ii++) {
+            for (int k = 0; k < 7; k++) {
+                l[ 7*ii + k ] = l3[7*ii + k];
+            }
+
+        }
+}
+
+#+end_src
+
+I hate to admit how long I had to stay up to get this function working. So, what exactly is this doing???
+
+It is *Matrix Exponentiation* algorithm implemented in C. It's very cursed, and I spent a lot of time fighting 2d arrays as they are very buggy with the risc-v compiler. The several deep copies ensures that the 2d array doesn't go out of scope. There is definetly a smarter way to manage the memory, I have not figured that out lol.
+
+The algorithm I used a reference to implement this : https://en.wikipedia.org/wiki/Exponentiation_by_squaring
+
+So, what is Matrix Exponentiation in this case?
+
+Well, it's a $GL(GF(p),7)$ group. Which is a symmetric Matrix over the Galois field p. All those details are unimportant. It's basically, matrix exponentiation with modulo p to the numbers.
+
+This with a Generator Matrix, forms a group that could be used for cryptography.... Or can it?
+
+Rule number 1 of cryptography *DONT ROLL YOUR OWN*
+
+This is a prime example of it. While in theory, this looks like a innocent group. It has it's problems.
+
+This Matrix exponentiation problem can be mapped to the discrete logarithm problem.
+
+Before, I talk about that let's formalise what the program is doing in /maths/
+
+$$
+\text{Given a generator matrix } M \\\\
+$$
+We can write the other values as
+$$
+E_{i} = M ^ {flag_i}
+$$
+
+Where $E_{i}$ is the encrypted matrix, and $i$ is the index.
+
+So what's the trick to mapping this to normal D Log?
+
+(Side note : If you look at the code you can see the matrix multiplication function is unrolled and the most cursed part, I wrote a python script that meta-programmed the C code :kekw:)
+* Mapping from Matrix DLog to Zp DLog
+
+Discrete logarithm problem is a computationally hard problem to solve for classical computers. Even the best algorithms are sub exponential. Quantum computers absolutely destroyes this problem along with Factoring problem for RSA with Shorr's algorithm.
+
+Every Symmetric Matrix has something called eigenvalues and eigenvectors. These are very important concepts in linear algebra, also used a lot in machine learning.
+
+As the generator matrix is not a diagonal matrix we can rewrite it in the Jordan Normal Form. Such that,
+
+$$
+M = P J P^{-1}
+$$
+
+where $J$ is diagonal matrix with the eigenvalues $\lambda_{i}$ for each row.
+
+The eigenvalues will look something like this :
+
+
+$$
+J=\left[\begin{array}{cccc}
+\lambda_0 &  & & \\
+& \lambda_{1} & & \\
+& & \ddots &  \\
+& & & \lambda_{n}
+\end{array}\right]
+$$
+
+where $\lambda_{i}$ is the eigenvalue.
+
+When we exponentiate this matrix, it will look like this :
+
+$$
+M^{pk} = P J^{pk} P^{-1}
+$$
+
+The diagonal matrix will look like this :
+
+$$
+J^{pk}=\left[\begin{array}{cccc}
+\lambda_0^{pk} &  & & \\
+& \lambda_{1}^{pk} & & \\
+& & \ddots &  \\
+& & & \lambda_{pk}
+\end{array}\right]
+$$
+
+where, pk is the encryption key.
+
+We can easily map this in sage like this :
+#+begin_src python
+A = [[..],..] # snipped
+ B = [[375566877478545277 , 2963470066555387146 , 1034431732462250314 , 1096052522777621704 , 966726340814324260 , 2312808208602313728 , 2907804859883349555], [2949062098533289437 , 1957129311596127718 , 2456012614040215831 , 5994564119965166 , 548816838846919710 , 2380634432242336228 , 1748601951870102145] , [472019223552114398 , 1518737730593601700 , 3390004047774294419 , 1805625029469648044 , 598679125429739514 , 1665597553982367426 , 1285277968503540042] , [2961189828386439397 , 866999723809507887 , 3391629504755701335 , 3428316069373416911 , 874902437344635643 , 3068095183648393752 , 1261189746469056227] , [613435458185279999 , 2456249157520398525 , 2951312215556724256 , 3046841459564705313 , 576553155703453927 , 86910304885107406 , 2871479624587693317] , [2161728794373590728 , 1367427337525595116 , 1686338019966952225 , 1563871609089857931 , 270876372562903161 , 943475285994326381 , 2811154736940917695] , [2300315486841274571 , 1589959687645788693 , 453888117229900400 , 2983005388551658162 , 37531775908612719 , 1670207313296143478 , 937106862855613514] ];
+
+A = Matrix(GF(p),A)
+B = Matrix(GF(p),B)
+a=A.eigenvalues()[0]
+b=B.eigenvalues()[0]
+
+#+end_src
+
+
+
+So, we notice that the exponents are very small. This means we can easily use some sage default discrete_log function to get the exponents and finally get the flag. The final sage script would look like this :
+
+#+begin_src python
+A = [[..],..] # snipped
+ B = [[375566877478545277 , 2963470066555387146 , 1034431732462250314 , 1096052522777621704 , 966726340814324260 , 2312808208602313728 , 2907804859883349555], [2949062098533289437 , 1957129311596127718 , 2456012614040215831 , 5994564119965166 , 548816838846919710 , 2380634432242336228 , 1748601951870102145] , [472019223552114398 , 1518737730593601700 , 3390004047774294419 , 1805625029469648044 , 598679125429739514 , 1665597553982367426 , 1285277968503540042] , [2961189828386439397 , 866999723809507887 , 3391629504755701335 , 3428316069373416911 , 874902437344635643 , 3068095183648393752 , 1261189746469056227] , [613435458185279999 , 2456249157520398525 , 2951312215556724256 , 3046841459564705313 , 576553155703453927 , 86910304885107406 , 2871479624587693317] , [2161728794373590728 , 1367427337525595116 , 1686338019966952225 , 1563871609089857931 , 270876372562903161 , 943475285994326381 , 2811154736940917695] , [2300315486841274571 , 1589959687645788693 , 453888117229900400 , 2983005388551658162 , 37531775908612719 , 1670207313296143478 , 937106862855613514] ];
+
+A = Matrix(GF(p),A)
+B = Matrix(GF(p),B)
+a=A.eigenvalues()[0]
+b=B.eigenvalues()[0]
+print(a)
+print(b)
+a = ..
+b = .
+flag_part = Mod(int(a),p).log(Mod(b,p))
+from Crypto.Util.number import long_to_bytes
+print((long_to_bytes(flag_part))[::-1])
+
+#+end_src
+
+
+Do this for each of the Arrays, and you should get parts of the flag.
+
+* Final thoughts
+
+This challenge was fun to make, especially playing with risc-v tool chain and doing some meta-programming stuff to generate C code to make it look more obfuscated. Thanks to everyone who solved it in pwnEd originally.
