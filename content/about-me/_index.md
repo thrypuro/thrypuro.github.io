@@ -4,7 +4,7 @@ type: page
 ---
 
 
-Computer Science and Mathematics student at University of Edinburgh. Graduating in the Year 2023 (hopefully)
+Computer Science and Mathematics graduate from University of Edinburgh.
 
 Interested in all thing Computers, Algebra and Security. 
 
