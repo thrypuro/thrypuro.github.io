@@ -24,13 +24,10 @@ pygmentsStyle = "dracula"
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
-          // customised options
-          // • auto-render specific keys, e.g.:
           delimiters: [
             {left: '$$', right: '$$', display: true},
             {left: '$', right: '$', display: false},
           ],
-          // • rendering keys, e.g.:
           throwOnError : false
         });
       });
@@ -59,7 +56,6 @@ pygmentsStyle = "dracula"
   [[menu.main]]
     name = "Projects"
     pre = "Ψ"
-
     url = "/projects/"
     weight = 3
 
@@ -68,8 +64,7 @@ pygmentsStyle = "dracula"
     url = "/about-me/"
     weight = 4
 
-
-[[menu.main]]
+  [[menu.main]]
     identifier = "github"
     pre = "<span data-feather='github'></span>"
     url = "https://github.com/thrypuro"
@@ -80,3 +75,7 @@ pygmentsStyle = "dracula"
     startLevel = 1
     endLevel = 4
     ordered = false
+
+[services]
+  [services.disqus]
+    shortname = "YOUR_DISQUS_SHORTNAME"
