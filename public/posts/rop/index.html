@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Return Oriented Programming</title>
+    <meta name="description" content="Some notes I wrote on ROP chains">
+    <meta name="keywords" content='blog, gokarna, hugo'>
+
+    <meta property="og:url" content="http://localhost:1313/posts/rop/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Return Oriented Programming">
+    <meta property="og:description" content="Some notes I wrote on ROP chains">
+    <meta property="og:image" content="http://localhost:1313/images/isaac.webp">
+    <meta property="og:image:secure_url" content="http://localhost:1313/images/isaac.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Return Oriented Programming">
+    <meta name="twitter:description" content="Some notes I wrote on ROP chains">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/rop/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/rop/">
+    <meta name="twitter:image" content="http://localhost:1313/images/isaac.webp">
+
+    
+    <link rel="canonical" href="http://localhost:1313/posts/rop/" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="http://localhost:1313//css/dark.css">
+
+    <script src="http://localhost:1313//js/svg-injector.min.js"></script>
+    <script src="http://localhost:1313//js/feather-icons.min.js"></script>
+    <script src="http://localhost:1313//js/main.js"></script>
+
+    
+    
+        <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+        <div class="avatar">
+            <a href="http://localhost:1313/">
+                <img src="http://localhost:1313//images/isaac.webp" alt="avatar" />
+            </a>
+        </div>
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:1313/">Thrypuro</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/">λ    Home </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/posts/">π  Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/projects/">Ψ Projects </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/about-me/"> ϕ About </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/">λ    Home </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/posts/">π  Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Return Oriented Programming</h1>
+        <small role="doc-subtitle">Some notes I wrote on ROP chains</small>
+        <p class="post-date">
+            May 13, 2023
+        </p>
+
+        <ul class="post-tags">
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Data Execution Prevention
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>DEP is used to prevent executing code in memory/stack. This is done by marking the pages with read/write/execute flags. If a spot in memory is read/write, you can&#39;t just set rip to a spot in the memory and jump to it because it&#39;s no longer possible to do so.</p>
+<p>
+Other exploitation techniques had to be developed in order for exploitation to be possible. ROP being one of them.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Return oriented programming
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+ROP is a technique commonly used to bypass DEP (Data Execution Prevention). The technique is commonly done by using snippets of code called gadgets and then chaining them together to form an exploit. These snippets of code have a &#39;ret&#39; instruction at their end.
+A way to find ROP gadgets in a binary is to look at the assembly of the program. For example, run:</p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>objdump -M intel -d binary | grep <span style="color:#f1fa8c">&#34;ret&#34;</span></span></span></code></pre></div>
+</div>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#50fa7b">pop</span> rdi
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">ret</span></span></span></code></pre></div>
+</div>
+<p>
+This snippet of gadget sets the rdi register to the next element in the stack. The best way to visualize this is by considering a scenario where a return address is overwritten. The stack layout around the return address would look something like this:</p>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>0<span style="color:#8be9fd;font-style:italic">x7fffffffedd8:</span>     0<span style="color:#50fa7b">x00000000004008e4</span> <span style="color:#6272a4">; --[ Gadget ( pop rdi; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffede0:</span>     0<span style="color:#50fa7b">x00007fffffffeeb8</span> <span style="color:#6272a4">;--| Gadget Effect (rdi will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffede8:</span>     0<span style="color:#50fa7b">x00007fffffffeeb8</span> <span style="color:#6272a4">;--| Gadget Effect (rip will equal this value i.e. the ret instruction)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffedf0:</span>     0<span style="color:#50fa7b">x00007f0000262030</span> ; --[ rsp points here after gadget execution eg: exit</span></span></code></pre></div>
+</div>
+<p>
+The important part is what you set in the next 2 values to be a syscall you would want to call. For example, you can call system and then &#39;/bin/sh&#39; from the libc using a ret2libc technique.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+A little more advanced chain
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+Lets build a chain that manually executes a syscall. In this section we will execute following C code in rop chain,</p>
+<div class="src src-c">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#50fa7b">execve</span>(<span style="color:#f1fa8c">&#34;/bin/sh</span><span style="color:#f1fa8c">\x00</span><span style="color:#f1fa8c">&#34;</span>, <span style="color:#8be9fd;font-style:italic">NULL</span>, <span style="color:#8be9fd;font-style:italic">NULL</span>)</span></span></code></pre></div>
+</div>
+<p>
+Here&#39;s the assembly we write in rop</p>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>    <span style="color:#50fa7b">pop</span> rdi <span style="color:#6272a4">; set this to &#34;/bin/sh&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">ret</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">pop</span> rsi <span style="color:#6272a4">; set this to NULL
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">ret</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">pop</span> rdx <span style="color:#6272a4">; set this to NULL
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">ret</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">pop</span> rax <span style="color:#6272a4">; set this to execve syscall 59
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">ret</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">syscall</span> <span style="color:#6272a4">; call execve
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">ret</span></span></span></code></pre></div>
+</div>
+<p>
+In the 64 bits stack, it would look something like this.</p>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>0<span style="color:#8be9fd;font-style:italic">x7fffffffedd8:</span>     0<span style="color:#50fa7b">x0000000000400af5</span> <span style="color:#6272a4">; --[ Gadget ( pop rdi; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffede0:</span>     0<span style="color:#50fa7b">x00007f00005b8d57</span> <span style="color:#6272a4">; --| Gadget Effect (rdi will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffede8:</span>     0<span style="color:#50fa7b">x0000000000400af7</span> <span style="color:#6272a4">; --[ Gadget ( pop rsi; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffedf0:</span>     0<span style="color:#50fa7b">x0000000000000000</span> <span style="color:#6272a4">; --| Gadget Effect (rsi will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffedf8:</span>     0<span style="color:#50fa7b">x0000000000400af9</span> <span style="color:#6272a4">; --[ Gadget ( pop rdx; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee00:</span>     0<span style="color:#50fa7b">x0000000000000000</span> <span style="color:#6272a4">;--| Gadget Effect (rdx will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee08:</span>     0<span style="color:#50fa7b">x0000000000400afb</span> <span style="color:#6272a4">;--[ Gadget ( pop rax; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee10:</span>     0<span style="color:#50fa7b">x000000000000003b</span> <span style="color:#6272a4">;--| Gadget Effect (rax will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee18:</span>     0<span style="color:#50fa7b">x0000000000400afd</span> <span style="color:#6272a4">;--[ Gadget ( syscall; ret )
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee20:</span>     0<span style="color:#50fa7b">x0000000000000000</span> <span style="color:#6272a4">;--| Gadget Effect (rip will equal this value)
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>0<span style="color:#8be9fd;font-style:italic">x7fffffffee28:</span>     0<span style="color:#50fa7b">x0000000000000000</span> ;--[ rsp points here after gadget execution</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Stack pivots
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>
+There&#39;s not always freedom to use things beyond the stack, for example there might be a stack cookie. The technique of pivoting the stack is common to do. For example,</p>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#50fa7b">pop</span> rsp
+</span></span><span style="display:flex;"><span><span style="color:#50fa7b">ret</span></span></span></code></pre></div>
+</div>
+<p>
+You set the value of the stack pointer such that you set it to an area where you have space to for example, later in the buffer or earlier where you might control. Then you do the usual rop-fu.</p>
+<p>
+Some examples of stack pivots are :</p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+&#39;add/sub $rsp&#39;
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>you add or subtract the stack point to move it up and down.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+&#39;leave; ret&#39;
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>We know leave&#39; is equivalent to</p>
+<div class="src src-asm">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>    <span style="color:#50fa7b">mov</span> rsp,rbp
+</span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">pop</span> rbp</span></span></code></pre></div>
+</div>
+<p>
+In scenarios where we have control over rbp, we can use a gadget like this to make more space with the gadget.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+&#39;xchg rsp&#39;
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>This can be used to change exchange or swap the value of the stack pointer with any other registers.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+How to find rop gadgets?
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>
+Commonly used tools for rop gadgets are ropper. There are other tools but ropper is the one I am most familiar with.</p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ropper <span style="color:#8be9fd;font-style:italic">file</span><span style="color:#ff79c6">=</span>binary <span style="color:#8be9fd;font-style:italic">find</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;pop&#34;</span></span></span></code></pre></div>
+</div>
+<p>The above code will atempt to find all the pop instruction in the assembly.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Alignment issues
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>One of the most common problems while doing a rop chain is stack alignment, where your program segfaults. This is because in a 64 bit system require your stack to be 16 bit aligned.</p>
+<p>
+This is solved by added a ret instruction, because whenever a normal ret instruction, the stack pointer is incremented by 8 bytes (since it tries to index 8 bytes of return address)</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+<span class="todo status-todo">TODO</span>
+ROP tool in pwntools
+</h2>
+</div>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+</div>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    <span>&copy; 2025 Thrypuro</span>
+ </footer>
+</body>
+</html>

@@ -71,11 +71,18 @@ pygmentsStyle = "dracula"
     weight = 5
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.tableOfContents]
     startLevel = 1
     endLevel = 4
     ordered = false
 
-[services]
-  [services.disqus]
-    shortname = "YOUR_DISQUS_SHORTNAME"
+# Suppress raw HTML warning
+ignoreLogs = ['warning-goldmark-raw-html']
+
+# Disqus disabled - uncomment and set your shortname to enable
+# [services]
+#   [services.disqus]
+#     shortname = "YOUR_DISQUS_SHORTNAME"

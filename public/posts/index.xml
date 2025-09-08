@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Thrypuro</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Thrypuro</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 03 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Return Oriented Programming</title>
+      <link>http://localhost:1313/posts/rop/</link>
+      <pubDate>Sat, 13 May 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/rop/</guid>
+      <description>&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;&#xA;&lt;h2 id=&#34;headline-1&#34;&gt;&#xA;Data Execution Prevention&#xA;&lt;/h2&gt;&#xA;&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;&#xA;&lt;p&gt;DEP is used to prevent executing code in memory/stack. This is done by marking the pages with read/write/execute flags. If a spot in memory is read/write, you can&amp;#39;t just set rip to a spot in the memory and jump to it because it&amp;#39;s no longer possible to do so.&lt;/p&gt;&#xA;&lt;p&gt;&#xA;Other exploitation techniques had to be developed in order for exploitation to be possible. ROP being one of them.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HTB University CTF qualifier and finals writeups</title>
+      <link>http://localhost:1313/posts/htb_2021/</link>
+      <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/htb_2021/</guid>
+      <description>&lt;h2 id=&#34;weak-rsa&#34;&gt;&lt;strong&gt;Weak RSA&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt;First crypto challenges, it was a pem file which can be opened with a python module or online pem parsers, We used the latter first just for a quick look, We noticed how big the e value is and we can safely conclude that:&#xA;$$&#xA;d&amp;lt;\frac{N^{\frac14}}{3}&#xA;$$&#xA;We can use the Wiener’s attack to calculate the private exponent.&lt;/p&gt;&#xA;&lt;p&gt;There is a python implementation of this attack that is already written, so just if you haven’t, paste this on a package manager:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Author writeup for pwnEd4 Riscy Business</title>
+      <link>http://localhost:1313/posts/riscy-business/</link>
+      <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/riscy-business/</guid>
+      <description>&lt;div id=&#34;outline-container-headline-1&#34; class=&#34;outline-2&#34;&gt;&#xA;&lt;h2 id=&#34;headline-1&#34;&gt;&#xA;Warning&#xA;&lt;/h2&gt;&#xA;&lt;div id=&#34;outline-text-headline-1&#34; class=&#34;outline-text-2&#34;&gt;&#xA;&lt;p&gt;I will be fully spoiling this challenge, while I won&amp;#39;t go over the reverse engineering aspect of it. As it is tedious and time consuming, especially when it is in risc-v architecture. I will be revealing the source-code and the solution to this.&lt;/p&gt;&#xA;&lt;p&gt;&#xA;If you would like to try the challenge yourself, it&amp;#39;s here , &lt;a href=&#34;https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/riscy_business&#34;&gt;https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/riscy_business&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;div id=&#34;outline-container-headline-2&#34; class=&#34;outline-2&#34;&gt;&#xA;&lt;h2 id=&#34;headline-2&#34;&gt;&#xA;What is it?&#xA;&lt;/h2&gt;&#xA;&lt;div id=&#34;outline-text-headline-2&#34; class=&#34;outline-text-2&#34;&gt;&#xA;&lt;p&gt;The source code for the challenge can be found at&#xA;&lt;a href=&#34;https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/source.c&#34;&gt;https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/source.c&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Quirky Franklin Reiter Related Message Attack challenge I made in pwned3</title>
+      <link>http://localhost:1313/posts/c0mm0n_p0lynomial/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/c0mm0n_p0lynomial/</guid>
+      <description>&lt;p&gt;This was the second time I wrote challenges for &lt;a href=&#34;https://pwned.sigint.mx/&#34;&gt;pwnEd&lt;/a&gt;. This was a unique challenge I conjured up when playing with Sagemath functions. For someone who knows some commutative algebra, this is quite a easy challenge.&lt;/p&gt;&#xA;&lt;p&gt;A multivariate version of this would be a fun to make in the future.&lt;/p&gt;&#xA;&lt;h1 id=&#34;c0mm0n_polynomial&#34;&gt;c0mm0n_polynomial&lt;/h1&gt;&#xA;&lt;p&gt;Look at edwards curve Doubling formula on wikipedia&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Edwards_curve&#34;&gt;https://en.wikipedia.org/wiki/Edwards_curve&lt;/a&gt;&lt;/p&gt;&#xA;&lt;img src=&#34;https://cdn.discordapp.com/attachments/668542758365167669/952262971063689246/unknown.png&#34; alt=&#34;wiki&#34; /&gt; &#xA;&lt;p&gt;Notice the first formula for doubling,&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;(x,y)+(x,y) = \left(\frac{2 xy}{1+dx^2y^2},\frac{y^2-x^2}{1-dx^2y^2} \right)&#xA;$$&#xA;The equation of edward&amp;rsquo;s curve is given by,&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Conway&#39;s game of Life in Fully Homomorphic Encryption</title>
+      <link>http://localhost:1313/posts/fhe/</link>
+      <pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/fhe/</guid>
+      <description>&lt;h2 id=&#34;context-can-skip-this&#34;&gt;Context (Can skip this)&lt;/h2&gt;&#xA;&lt;p&gt;I had a chance to work on FHE related technology stuff for a year, I learnt a lot, ultimately I decided it wasn&amp;rsquo;t the field I was fully interested in.&lt;/p&gt;&#xA;&lt;p&gt;It is still a fascinating field, that has made remarkable progress over the years. As I haven&amp;rsquo;t posted in a very long time, (read : 2 years), I decided, why not make a guide of sorts with everything I know and understand about the field. I am truly grateful for the time I spent on learning things related to this field. I shall definitely be revisiting it more in detail.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

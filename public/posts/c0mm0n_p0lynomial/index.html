@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Quirky Franklin Reiter Related Message Attack challenge I made in pwned3</title>
+    <meta name="description" content="Writeups for some of my challenges in pwned">
+    <meta name="keywords" content='blog, gokarna, hugo'>
+
+    <meta property="og:url" content="http://localhost:1313/posts/c0mm0n_p0lynomial/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Quirky Franklin Reiter Related Message Attack challenge I made in pwned3">
+    <meta property="og:description" content="Writeups for some of my challenges in pwned">
+    <meta property="og:image" content="http://localhost:1313/images/isaac.webp">
+    <meta property="og:image:secure_url" content="http://localhost:1313/images/isaac.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quirky Franklin Reiter Related Message Attack challenge I made in pwned3">
+    <meta name="twitter:description" content="Writeups for some of my challenges in pwned">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/c0mm0n_p0lynomial/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/c0mm0n_p0lynomial/">
+    <meta name="twitter:image" content="http://localhost:1313/images/isaac.webp">
+
+    
+    <link rel="canonical" href="http://localhost:1313/posts/c0mm0n_p0lynomial/" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="http://localhost:1313//css/dark.css">
+
+    <script src="http://localhost:1313//js/svg-injector.min.js"></script>
+    <script src="http://localhost:1313//js/feather-icons.min.js"></script>
+    <script src="http://localhost:1313//js/main.js"></script>
+
+    
+    
+        <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+        <div class="avatar">
+            <a href="http://localhost:1313/">
+                <img src="http://localhost:1313//images/isaac.webp" alt="avatar" />
+            </a>
+        </div>
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:1313/">Thrypuro</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/">λ    Home </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/posts/">π  Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/projects/">Ψ Projects </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/about-me/"> ϕ About </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/">λ    Home </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/posts/">π  Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Quirky Franklin Reiter Related Message Attack challenge I made in pwned3</h1>
+        <small role="doc-subtitle">Writeups for some of my challenges in pwned</small>
+        <p class="post-date">
+            March 13, 2022
+        </p>
+
+        <ul class="post-tags">
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <p>This was the second time I wrote challenges for <a href="https://pwned.sigint.mx/">pwnEd</a>. This was a unique challenge I conjured up when playing with Sagemath functions. For someone who knows some commutative algebra, this is quite a easy challenge.</p>
+<p>A multivariate version of this would be a fun to make in the future.</p>
+<h1 id="c0mm0n_polynomial">c0mm0n_polynomial</h1>
+<p>Look at edwards curve Doubling formula on wikipedia</p>
+<p><a href="https://en.wikipedia.org/wiki/Edwards_curve">https://en.wikipedia.org/wiki/Edwards_curve</a></p>
+<img src="https://cdn.discordapp.com/attachments/668542758365167669/952262971063689246/unknown.png" alt="wiki" /> 
+<p>Notice the first formula for doubling,</p>
+<p>$$
+(x,y)+(x,y) = \left(\frac{2 xy}{1+dx^2y^2},\frac{y^2-x^2}{1-dx^2y^2} \right)
+$$
+The equation of edward&rsquo;s curve is given by,</p>
+<p>$$
+x^2+y^2=1+dx^2y^2
+$$
+We can rearrange this in terms, and put it in terms of $y^2$, i.e.</p>
+<p>$$
+y^2 - dx^2y^2=1-x^2
+$$
+$$ y^2 (1-dx^2)=(1-x^2)
+$$
+$$ y^2 = \frac{(1-x^2)}{(1-dx^2)}
+$$</p>
+<p>So, how do we use this fact and solve this challenge? Notice, in <code>y</code> coordinate of the doubling formula we can substitute <code>y^2</code> in terms of <code>x</code>
+$$
+y3=\frac{y^2-x^2}{1-dx^2y^2}
+$$
+can be subbed as,
+$$
+\ =\frac{\frac{(1-x^2)}{(1-dx^2)}-x^2}{1-dx^2\frac{(1-x^2)}{(1-dx^2)}}
+$$ Moving everything around ( cross multiply, cancel common denominator etc),</p>
+<p>we can cancel the denominator and we get,</p>
+<p>$$
+\ = \frac{dx^4-2x^2+1}{dx^4-2dx^2+1}
+$$
+Will let the reader, check if this is true :)</p>
+<p>So, what now? Remember <code>x</code> term is our message, so the intuition would be to solve it like equations</p>
+<p>We are given <code>(x3,y3)</code>,  and <code>ciphertext</code>, lets look at all the equations and inspect them,
+$$
+y3 =\frac{dx^4-2x^2+1}{dx^4-2dx^2+1}
+$$ $$ c \equiv x^e\mod{n}
+$$
+where y3, is also in <code>mod n</code>. Anyway, if you look at it long enough you see that, this is basically the same as a <code>Franklin Reiter Related Message Attack</code>, i.e. they have a common polynomial <code>x</code> , hence, we can apply that attack here with some sage magic :). More on <a href="https://crypto.stackexchange.com/questions/30884/help-understanding-basic-franklin-reiter-related-message-attack">https://crypto.stackexchange.com/questions/30884/help-understanding-basic-franklin-reiter-related-message-attack</a> .</p>
+<p>The solve script in sage&hellip;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">103996268785200597457400054657729976413060151228977338033643391003930647287768302869515197371901097035736501990272694915868170023537750164639401037015764843455974706668319481494480032025455755226301139490448389949897443408666069902494269114739081140535251929978733427054991169727296826771967474827868547926753</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c1 <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">50384969070740404863016672328984593574289561529482152745370590028448590076109868226096410422105807215032905607175444240659677097580901585202465946360552659533029029686350262553497155871769901222443595160656700977130087396999606679369271433536396834725391010788795012488308267220543391304550666066697652451811</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">57525843535123041084333913603327980270069361310368904830328939245698964243435432838076870244867137017620684223775331018859077619960456875931333770559510843466612129337712117386122649331258312638608455155834592245819111894206453079271124330917981044167074042788007540256753216080225662492460329902370334373027</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>qx,qy <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">92082107658055266733484033039832338851695904419137924549484599318310389538964753291832660712623529326634127142651680562415187106205249397744538318875571763140147435698552195111134720885082388679098105902809861174761072030316157142356434712239005182578684758822320763218266138477574022576715256817853678094615</span>, <span style="color:#bd93f9">62722135743895550625323645931932423111233681829594986621564570752057592715824454259484770375322114914527122848902670818204861925243607382403459876987070947881516627693822846146782611939645098547243273788291322781461474139053266840644787762705342190464319063929249520483312574432320637099599676545420279531195</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>P<span style="color:#ff79c6">.&lt;</span>x<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">=</span> PolynomialRing(Zmod(n),implementation<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;NTL&#34;</span>)
+</span></span><span style="display:flex;"><span>f<span style="color:#ff79c6">=</span> x<span style="color:#ff79c6">^</span>e<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">int</span>(c1)
+</span></span><span style="display:flex;"><span>g <span style="color:#ff79c6">=</span> qy<span style="color:#ff79c6">*</span>(d<span style="color:#ff79c6">*</span>x<span style="color:#ff79c6">^</span><span style="color:#bd93f9">4</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">*</span>d<span style="color:#ff79c6">*</span>x<span style="color:#ff79c6">^</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">-</span>(d<span style="color:#ff79c6">*</span>x<span style="color:#ff79c6">^</span><span style="color:#bd93f9">4</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">*</span>x<span style="color:#ff79c6">^</span><span style="color:#bd93f9">2</span><span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>pgcd <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">lambda</span> g1, g2: g1<span style="color:#ff79c6">.</span>monic() <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> g2 <span style="color:#ff79c6">else</span> pgcd(g2, g1<span style="color:#ff79c6">%</span>g2)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(long_to_bytes(<span style="color:#ff79c6">-</span>pgcd(f, g)<span style="color:#ff79c6">.</span>coefficients()[<span style="color:#bd93f9">0</span>]))
+</span></span></code></pre></div>
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+</div>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    <span>&copy; 2025 Thrypuro</span>
+ </footer>
+</body>
+</html>
