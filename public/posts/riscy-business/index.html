@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Author writeup for pwnEd4 Riscy Business</title>
+    <meta name="description" content="This challenge was painful to implement, might as well document a writeup lol">
+    <meta name="keywords" content='blog, gokarna, hugo'>
+
+    <meta property="og:url" content="http://localhost:1313/posts/riscy-business/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Author writeup for pwnEd4 Riscy Business">
+    <meta property="og:description" content="This challenge was painful to implement, might as well document a writeup lol">
+    <meta property="og:image" content="http://localhost:1313/images/isaac.webp">
+    <meta property="og:image:secure_url" content="http://localhost:1313/images/isaac.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Author writeup for pwnEd4 Riscy Business">
+    <meta name="twitter:description" content="This challenge was painful to implement, might as well document a writeup lol">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/riscy-business/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/riscy-business/">
+    <meta name="twitter:image" content="http://localhost:1313/images/isaac.webp">
+
+    
+    <link rel="canonical" href="http://localhost:1313/posts/riscy-business/" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="http://localhost:1313//css/dark.css">
+
+    <script src="http://localhost:1313//js/svg-injector.min.js"></script>
+    <script src="http://localhost:1313//js/feather-icons.min.js"></script>
+    <script src="http://localhost:1313//js/main.js"></script>
+
+    
+    
+        <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+  
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+        <div class="avatar">
+            <a href="http://localhost:1313/">
+                <img src="http://localhost:1313//images/isaac.webp" alt="avatar" />
+            </a>
+        </div>
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:1313/">Thrypuro</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/">λ    Home </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/posts/">π  Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/projects/">Ψ Projects </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/about-me/"> ϕ About </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/">λ    Home </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/posts/">π  Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com/thrypuro"><span data-feather='github'></span>  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Author writeup for pwnEd4 Riscy Business</h1>
+        <small role="doc-subtitle">This challenge was painful to implement, might as well document a writeup lol</small>
+        <p class="post-date">
+            April 5, 2023
+        </p>
+
+        <ul class="post-tags">
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Warning
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>I will be fully spoiling this challenge, while I won&#39;t go over the reverse engineering aspect of it. As it is tedious and time consuming, especially when it is in risc-v architecture. I will be revealing the source-code and the solution to this.</p>
+<p>
+If you would like to try the challenge yourself, it&#39;s here , <a href="https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/riscy_business">https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/riscy_business</a></p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+What is it?
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The source code for the challenge can be found at
+<a href="https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/source.c">https://github.com/thrypuro/my-ctf-challenges/blob/main/pwned/riscy_business/source.c</a></p>
+<p>
+This is secretly a crypto challenge in disguise! I have trolled the reverse engineering enjoyers :sunglasses:</p>
+<p>
+Let&#39;s start by looking at the main function.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Main function
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<div class="src src-c">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;Give me the flag and I&#39;ll run my RISCY flag-checker:&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> input[<span style="color:#bd93f9">50</span>];
+</span></span><span style="display:flex;"><span>	<span style="color:#50fa7b">fgets</span>(input, <span style="color:#bd93f9">50</span>, stdin);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ff79c6">if</span> (<span style="color:#50fa7b">strlen</span>(input) <span style="color:#ff79c6">!=</span> <span style="color:#bd93f9">49</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;You&#39;re shearing me apart...&#34;</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#50fa7b">exit</span>(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> input_flag[<span style="color:#bd93f9">8</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// convert every 7 bytes to a little endian uint64_t
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">2</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">3</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">3</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">4</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">4</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">5</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">5</span>);
+</span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">6</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">6</span>);
+</span></span><span style="display:flex;"><span>   .
+</span></span><span style="display:flex;"><span> ..
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</div>
+<p>We can see that the program asks you to input the flag which seems like it&#39;s going to be checked with some random values and the flag has to be the length 49.</p>
+<p>
+We see that, every 7 byte of the flag is converted to a little endian 64 bit number. I expanded the loop because it looks very gross to disassemble as it turns it into very cursed assembly :P (I have been told this can be done by setting a flag in gcc, I have yet to confirm this)</p>
+<p>
+After all the characters of the flag have been converted into 64 bit numbers.</p>
+<p>
+We see the comparison here</p>
+<div class="src src-c">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i<span style="color:#ff79c6">&lt;</span><span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;Matrix %u  for exp %u : \n &#34; , input_flag[i], 2);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l  <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">array_exp</span>(beeg_yoshi,input_flag[i],p , l );
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;Matrix %u  for exp %llu : \n &#34; , i, input_flag[i]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// ^ initial
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#8be9fd">uint64_t</span> l2 [<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// print l
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;{&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;{&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                l2[i][j] <span style="color:#ff79c6">=</span> l[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>i <span style="color:#ff79c6">+</span> j];
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">if</span> (j <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">6</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;%llu&#34;</span>, l2[i][j]);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;%llu, &#34;</span>, l2[i][j]);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;},</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>);
+</span></span><span style="display:flex;"><span>        }</span></span></code></pre></div>
+</div>
+<p>
+It&#39;s calling the array_exp function with each part of the flag as one of the arguments for the function. This is an encryption.</p>
+<p>
+While the function name here gives you a hint, decompiling this without symbols is not fun. (Sorry for stripping the binary :sob:)</p>
+<p>
+After the encryption is done, each 2d array is checked against some ciphertexts, the usual rev challenge shenanigans.</p>
+<p>
+Let&#39;s look at what array_exp implements.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Array Exponentiation??? that&#39;s not a group??
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<div class="src src-c">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#6272a4">// count bits a uint64_t
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">count_bits</span>(<span style="color:#8be9fd">uint64_t</span> n)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> count <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">while</span> (n)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        count <span style="color:#ff79c6">+=</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>        n <span style="color:#ff79c6">&gt;&gt;=</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> count;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">array_exp</span>( <span style="color:#8be9fd">uint64_t</span> l0[<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>], <span style="color:#8be9fd">uint64_t</span> e ,<span style="color:#8be9fd">uint64_t</span> p , <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// uint64_t l = l0;
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">// ^ deep copy l0 to l
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            l[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>i <span style="color:#ff79c6">+</span> j] <span style="color:#ff79c6">=</span> l0[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> l4[<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// copy identity matrix to l4
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">==</span> j) {
+</span></span><span style="display:flex;"><span>                l4[i][j] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>            } <span style="color:#ff79c6">else</span> {
+</span></span><span style="display:flex;"><span>                l4[i][j] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// printf(&#34;%d&#34;, count_bits(e));
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#8be9fd">int</span> exp <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">count_bits</span>(e);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">while</span> (e<span style="color:#ff79c6">&gt;</span><span style="color:#bd93f9">1</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> ( e <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> ) {
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l2 <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
+</span></span><span style="display:flex;"><span>            <span style="color:#50fa7b">array_mul</span>(<span style="color:#ff79c6">*</span>l4,l,l2,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// l = array_mul(l,l0,p,7,7,7);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#6272a4">// deep copy l2 to l
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                    l4[ii][k] <span style="color:#ff79c6">=</span> l2[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            e <span style="color:#ff79c6">=</span> (e<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l1 <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">array_mul</span>(l,l,l1,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;\n exp is %d \n&#34;, e);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// print l1 to see if it is correct
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// for (int k = 0; k &lt; 7; k++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//     for (int jj = 0; jj &lt; 7; jj++) {
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//         printf(&#34;%llu ,  &#34;, *l0[7*k + jj]);
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//     }
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// deep copy l1 to l
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                l[ <span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k ] <span style="color:#ff79c6">=</span> l1[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        e <span style="color:#ff79c6">=</span> e <span style="color:#ff79c6">&gt;&gt;</span> <span style="color:#bd93f9">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l3 <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// matrix multiply l and l4
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">array_mul</span>(<span style="color:#ff79c6">*</span>l4,l,l3,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// deep copy l1 to l
+</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
+</span></span><span style="display:flex;"><span>                l[ <span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k ] <span style="color:#ff79c6">=</span> l3[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</div>
+<p>
+I hate to admit how long I had to stay up to get this function working. So, what exactly is this doing???</p>
+<p>
+It is <strong>Matrix Exponentiation</strong> algorithm implemented in C. It&#39;s very cursed, and I spent a lot of time fighting 2d arrays as they are very buggy with the risc-v compiler. The several deep copies ensures that the 2d array doesn&#39;t go out of scope. There is definetly a smarter way to manage the memory, I have not figured that out lol.</p>
+<p>
+The algorithm I used a reference to implement this : <a href="https://en.wikipedia.org/wiki/Exponentiation_by_squaring">https://en.wikipedia.org/wiki/Exponentiation_by_squaring</a></p>
+<p>
+So, what is Matrix Exponentiation in this case?</p>
+<p>
+Well, it&#39;s a $GL(GF(p),7)$ group. Which is a symmetric Matrix over the Galois field p. All those details are unimportant. It&#39;s basically, matrix exponentiation with modulo p to the numbers.</p>
+<p>
+This with a Generator Matrix, forms a group that could be used for cryptography…. Or can it?</p>
+<p>
+Rule number 1 of cryptography <strong>DONT ROLL YOUR OWN</strong></p>
+<p>
+This is a prime example of it. While in theory, this looks like a innocent group. It has it&#39;s problems.</p>
+<p>
+This Matrix exponentiation problem can be mapped to the discrete logarithm problem.</p>
+<p>
+Before, I talk about that let&#39;s formalise what the program is doing in <em>maths</em></p>
+<p>
+$$
+\text{Given a generator matrix } M \\\\
+$$
+We can write the other values as
+$$
+E_{i} = M ^ {flag_i}
+$$</p>
+<p>
+Where $E_{i}$ is the encrypted matrix, and $i$ is the index.</p>
+<p>
+So what&#39;s the trick to mapping this to normal D Log?</p>
+<p>
+(Side note : If you look at the code you can see the matrix multiplication function is unrolled and the most cursed part, I wrote a python script that meta-programmed the C code :kekw:)</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Mapping from Matrix DLog to Zp DLog
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>
+Discrete logarithm problem is a computationally hard problem to solve for classical computers. Even the best algorithms are sub exponential. Quantum computers absolutely destroyes this problem along with Factoring problem for RSA with Shorr&#39;s algorithm.</p>
+<p>
+Every Symmetric Matrix has something called eigenvalues and eigenvectors. These are very important concepts in linear algebra, also used a lot in machine learning.</p>
+<p>
+As the generator matrix is not a diagonal matrix we can rewrite it in the Jordan Normal Form. Such that,</p>
+<p>
+$$
+M = P J P^{-1}
+$$</p>
+<p>
+where $J$ is diagonal matrix with the eigenvalues $\lambda_{i}$ for each row.</p>
+<p>
+The eigenvalues will look something like this :</p>
+<p>
+$$
+J=\left[\begin{array}{cccc}
+\lambda_0 &amp;  &amp; &amp; \\
+&amp; \lambda_{1} &amp; &amp; \\
+&amp; &amp; \ddots &amp;  \\
+&amp; &amp; &amp; \lambda_{n}
+\end{array}\right]
+$$</p>
+<p>
+where $\lambda_{i}$ is the eigenvalue.</p>
+<p>
+When we exponentiate this matrix, it will look like this :</p>
+<p>
+$$
+M^{pk} = P J^{pk} P^{-1}
+$$</p>
+<p>
+The diagonal matrix will look like this :</p>
+<p>
+$$
+J^{pk}=\left[\begin{array}{cccc}
+\lambda_0^{pk} &amp;  &amp; &amp; \\
+&amp; \lambda_{1}^{pk} &amp; &amp; \\
+&amp; &amp; \ddots &amp;  \\
+&amp; &amp; &amp; \lambda_{pk}
+\end{array}\right]
+$$</p>
+<p>
+where, pk is the encryption key.</p>
+<p>
+We can easily map this in sage like this :</p>
+<div class="src src-python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
+</span></span><span style="display:flex;"><span> B <span style="color:#ff79c6">=</span> [[<span style="color:#bd93f9">375566877478545277</span> , <span style="color:#bd93f9">2963470066555387146</span> , <span style="color:#bd93f9">1034431732462250314</span> , <span style="color:#bd93f9">1096052522777621704</span> , <span style="color:#bd93f9">966726340814324260</span> , <span style="color:#bd93f9">2312808208602313728</span> , <span style="color:#bd93f9">2907804859883349555</span>], [<span style="color:#bd93f9">2949062098533289437</span> , <span style="color:#bd93f9">1957129311596127718</span> , <span style="color:#bd93f9">2456012614040215831</span> , <span style="color:#bd93f9">5994564119965166</span> , <span style="color:#bd93f9">548816838846919710</span> , <span style="color:#bd93f9">2380634432242336228</span> , <span style="color:#bd93f9">1748601951870102145</span>] , [<span style="color:#bd93f9">472019223552114398</span> , <span style="color:#bd93f9">1518737730593601700</span> , <span style="color:#bd93f9">3390004047774294419</span> , <span style="color:#bd93f9">1805625029469648044</span> , <span style="color:#bd93f9">598679125429739514</span> , <span style="color:#bd93f9">1665597553982367426</span> , <span style="color:#bd93f9">1285277968503540042</span>] , [<span style="color:#bd93f9">2961189828386439397</span> , <span style="color:#bd93f9">866999723809507887</span> , <span style="color:#bd93f9">3391629504755701335</span> , <span style="color:#bd93f9">3428316069373416911</span> , <span style="color:#bd93f9">874902437344635643</span> , <span style="color:#bd93f9">3068095183648393752</span> , <span style="color:#bd93f9">1261189746469056227</span>] , [<span style="color:#bd93f9">613435458185279999</span> , <span style="color:#bd93f9">2456249157520398525</span> , <span style="color:#bd93f9">2951312215556724256</span> , <span style="color:#bd93f9">3046841459564705313</span> , <span style="color:#bd93f9">576553155703453927</span> , <span style="color:#bd93f9">86910304885107406</span> , <span style="color:#bd93f9">2871479624587693317</span>] , [<span style="color:#bd93f9">2161728794373590728</span> , <span style="color:#bd93f9">1367427337525595116</span> , <span style="color:#bd93f9">1686338019966952225</span> , <span style="color:#bd93f9">1563871609089857931</span> , <span style="color:#bd93f9">270876372562903161</span> , <span style="color:#bd93f9">943475285994326381</span> , <span style="color:#bd93f9">2811154736940917695</span>] , [<span style="color:#bd93f9">2300315486841274571</span> , <span style="color:#bd93f9">1589959687645788693</span> , <span style="color:#bd93f9">453888117229900400</span> , <span style="color:#bd93f9">2983005388551658162</span> , <span style="color:#bd93f9">37531775908612719</span> , <span style="color:#bd93f9">1670207313296143478</span> , <span style="color:#bd93f9">937106862855613514</span>] ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> Matrix(GF(p),A)
+</span></span><span style="display:flex;"><span>B <span style="color:#ff79c6">=</span> Matrix(GF(p),B)
+</span></span><span style="display:flex;"><span>a<span style="color:#ff79c6">=</span>A<span style="color:#ff79c6">.</span>eigenvalues()[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>b<span style="color:#ff79c6">=</span>B<span style="color:#ff79c6">.</span>eigenvalues()[<span style="color:#bd93f9">0</span>]</span></span></code></pre></div>
+</div>
+<p>
+So, we notice that the exponents are very small. This means we can easily use some sage default discrete_log function to get the exponents and finally get the flag. The final sage script would look like this :</p>
+<div class="src src-python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
+</span></span><span style="display:flex;"><span> B <span style="color:#ff79c6">=</span> [[<span style="color:#bd93f9">375566877478545277</span> , <span style="color:#bd93f9">2963470066555387146</span> , <span style="color:#bd93f9">1034431732462250314</span> , <span style="color:#bd93f9">1096052522777621704</span> , <span style="color:#bd93f9">966726340814324260</span> , <span style="color:#bd93f9">2312808208602313728</span> , <span style="color:#bd93f9">2907804859883349555</span>], [<span style="color:#bd93f9">2949062098533289437</span> , <span style="color:#bd93f9">1957129311596127718</span> , <span style="color:#bd93f9">2456012614040215831</span> , <span style="color:#bd93f9">5994564119965166</span> , <span style="color:#bd93f9">548816838846919710</span> , <span style="color:#bd93f9">2380634432242336228</span> , <span style="color:#bd93f9">1748601951870102145</span>] , [<span style="color:#bd93f9">472019223552114398</span> , <span style="color:#bd93f9">1518737730593601700</span> , <span style="color:#bd93f9">3390004047774294419</span> , <span style="color:#bd93f9">1805625029469648044</span> , <span style="color:#bd93f9">598679125429739514</span> , <span style="color:#bd93f9">1665597553982367426</span> , <span style="color:#bd93f9">1285277968503540042</span>] , [<span style="color:#bd93f9">2961189828386439397</span> , <span style="color:#bd93f9">866999723809507887</span> , <span style="color:#bd93f9">3391629504755701335</span> , <span style="color:#bd93f9">3428316069373416911</span> , <span style="color:#bd93f9">874902437344635643</span> , <span style="color:#bd93f9">3068095183648393752</span> , <span style="color:#bd93f9">1261189746469056227</span>] , [<span style="color:#bd93f9">613435458185279999</span> , <span style="color:#bd93f9">2456249157520398525</span> , <span style="color:#bd93f9">2951312215556724256</span> , <span style="color:#bd93f9">3046841459564705313</span> , <span style="color:#bd93f9">576553155703453927</span> , <span style="color:#bd93f9">86910304885107406</span> , <span style="color:#bd93f9">2871479624587693317</span>] , [<span style="color:#bd93f9">2161728794373590728</span> , <span style="color:#bd93f9">1367427337525595116</span> , <span style="color:#bd93f9">1686338019966952225</span> , <span style="color:#bd93f9">1563871609089857931</span> , <span style="color:#bd93f9">270876372562903161</span> , <span style="color:#bd93f9">943475285994326381</span> , <span style="color:#bd93f9">2811154736940917695</span>] , [<span style="color:#bd93f9">2300315486841274571</span> , <span style="color:#bd93f9">1589959687645788693</span> , <span style="color:#bd93f9">453888117229900400</span> , <span style="color:#bd93f9">2983005388551658162</span> , <span style="color:#bd93f9">37531775908612719</span> , <span style="color:#bd93f9">1670207313296143478</span> , <span style="color:#bd93f9">937106862855613514</span>] ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> Matrix(GF(p),A)
+</span></span><span style="display:flex;"><span>B <span style="color:#ff79c6">=</span> Matrix(GF(p),B)
+</span></span><span style="display:flex;"><span>a<span style="color:#ff79c6">=</span>A<span style="color:#ff79c6">.</span>eigenvalues()[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span>b<span style="color:#ff79c6">=</span>B<span style="color:#ff79c6">.</span>eigenvalues()[<span style="color:#bd93f9">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">..</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">.</span>
+</span></span><span style="display:flex;"><span>flag_part <span style="color:#ff79c6">=</span> Mod(<span style="color:#8be9fd;font-style:italic">int</span>(a),p)<span style="color:#ff79c6">.</span>log(Mod(b,p))
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> Crypto.Util.number <span style="color:#ff79c6">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>((long_to_bytes(flag_part))[::<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>])</span></span></code></pre></div>
+</div>
+<p>
+Do this for each of the Arrays, and you should get parts of the flag.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Final thoughts
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+This challenge was fun to make, especially playing with risc-v tool chain and doing some meta-programming stuff to generate C code to make it look more obfuscated. Thanks to everyone who solved it in pwnEd originally.</p>
+</div>
+</div>
+
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+</div>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    <span>&copy; 2025 Thrypuro</span>
+ </footer>
+</body>
+</html>
