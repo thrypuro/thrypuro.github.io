@@ -35,7 +35,7 @@ pygmentsStyle = "dracula"
   """
   socialIcons = [
     {name = "twitter", url = "https://twitter.com/thrypuro"},
-    {name = "email", url = "mailto:base64.encode("dGhyeXB1cm9AcHJvdG9uLm1l)"}
+    {name = "email", url = "mailto:base64.decode('dGhyeXB1cm9AcHJvdG9uLm1l')"}
   ]
   metaKeywords = ["blog", "gokarna", "hugo"]
 
