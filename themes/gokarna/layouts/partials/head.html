@@ -2,9 +2,156 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --accent-color: {{ .Site.Params.AccentColor | default "#FF4D4D" }};
+            --accent-color: {{ .Site.Params.AccentColor | default "#d4a820" }};
+        }
+    </style>
+
+    <style>
+        /* ── NAVBAR LAYOUT (flexbox alignment fix) ── */
+
+        .header {
+            border-bottom: 3px solid var(--accent-color);
+            height: 54px;
+            transition: transform 0.35s ease-in-out, box-shadow 0.3s ease-in-out !important;
+        }
+
+        .header.hide {
+            transform: translateY(-100%);
+        }
+
+        .header .header-nav {
+            display: flex !important;
+            align-items: center !important;
+            height: 54px !important;
+            padding: 0 18px;
+            margin-top: 0;
+        }
+
+        .header-nav .avatar {
+            float: none !important;
+            flex-shrink: 0;
+            height: auto;
+            margin-left: 0;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-nav .avatar img {
+            margin-top: 0 !important;
+        }
+
+        .header-nav .nav-title {
+            display: flex !important;
+            align-items: center !important;
+            height: auto !important;
+            padding-left: 0 !important;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .nav-title a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            line-height: 1;
+            height: auto !important;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+
+        .header-nav .nav-links {
+            display: flex !important;
+            align-items: center !important;
+            float: none !important;
+            margin-left: auto;
+            margin-right: 0;
+            line-height: 1;
+            gap: 2px;
+        }
+
+        .nav-links .nav-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 0;
+        }
+
+        @media only screen and (max-width: 820px) {
+            .nav-links .nav-link,
+            .nav-links .nav-icons-divider {
+                display: none !important;
+            }
+
+            #hamburger-menu-toggle {
+                display: flex !important;
+                align-items: center !important;
+            }
+        }
+
+        .nav-links .nav-link a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            padding: 8px 10px;
+            border: 2px solid transparent;
+            transition: all 0.1s ease;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-links .nav-link a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            border-color: rgba(0,0,0,0.5);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            transform: translate(-1px, -1px);
+            text-decoration: none;
+        }
+
+        .nav-links .nav-icons-divider {
+            display: none !important;
+        }
+
+        .dark-theme-toggle a {
+            padding: 7px 9px !important;
+            display: flex !important;
+            align-items: center !important;
+            border: 2px solid var(--accent-color) !important;
+        }
+
+        .dark-theme-toggle a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5) !important;
+        }
+
+        .header-shadow {
+            box-shadow: none !important;
+        }
+
+        /* ── MOBILE ── */
+
+        .nav-hamburger-list li a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 16px;
+            display: block;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list li a:hover {
+            background: var(--accent-color);
+            color: #0a0820;
+            border-color: rgba(0,0,0,0.4);
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list {
+            border-bottom: 3px solid var(--accent-color) !important;
         }
     </style>
 
@@ -34,7 +181,7 @@
     <meta property="twitter:url" content="{{ .Permalink }}">
     <meta name="twitter:image" content="{{ absURL $image }}">
 
-    <!-- SEO canonicals: helps Google understand your site better when using marketing campaign tagging etc -->
+    <!-- SEO canonicals -->
     <link rel="canonical" href="{{ .Permalink }}" />
 
     <link rel="stylesheet" type="text/css" href="{{ .Site.BaseURL }}/css/normalize.min.css" media="print" onload="this.media='all'">
@@ -49,4 +196,28 @@
     {{ if .Site.Params.CustomHeadHTML }}
     {{ .Site.Params.CustomHeadHTML | safeHTML }}
     {{ end }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let lastScroll = 0;
+            const header = document.querySelector('.header');
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll <= 0) {
+                    header.classList.remove('hide');
+                    return;
+                }
+
+                if (currentScroll > lastScroll && !header.classList.contains('hide')) {
+                    header.classList.add('hide');
+                } else if (currentScroll < lastScroll && header.classList.contains('hide')) {
+                    header.classList.remove('hide');
+                }
+
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
 </head>

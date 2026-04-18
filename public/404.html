@@ -1,11 +1,158 @@
 <!DOCTYPE html>
-<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --accent-color: #FF4D4D;
+            --accent-color: #d4a820;
+        }
+    </style>
+
+    <style>
+         
+
+        .header {
+            border-bottom: 3px solid var(--accent-color);
+            height: 54px;
+            transition: transform 0.35s ease-in-out, box-shadow 0.3s ease-in-out !important;
+        }
+
+        .header.hide {
+            transform: translateY(-100%);
+        }
+
+        .header .header-nav {
+            display: flex !important;
+            align-items: center !important;
+            height: 54px !important;
+            padding: 0 18px;
+            margin-top: 0;
+        }
+
+        .header-nav .avatar {
+            float: none !important;
+            flex-shrink: 0;
+            height: auto;
+            margin-left: 0;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-nav .avatar img {
+            margin-top: 0 !important;
+        }
+
+        .header-nav .nav-title {
+            display: flex !important;
+            align-items: center !important;
+            height: auto !important;
+            padding-left: 0 !important;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .nav-title a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            line-height: 1;
+            height: auto !important;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+
+        .header-nav .nav-links {
+            display: flex !important;
+            align-items: center !important;
+            float: none !important;
+            margin-left: auto;
+            margin-right: 0;
+            line-height: 1;
+            gap: 2px;
+        }
+
+        .nav-links .nav-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 0;
+        }
+
+        @media only screen and (max-width: 820px) {
+            .nav-links .nav-link,
+            .nav-links .nav-icons-divider {
+                display: none !important;
+            }
+
+            #hamburger-menu-toggle {
+                display: flex !important;
+                align-items: center !important;
+            }
+        }
+
+        .nav-links .nav-link a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            padding: 8px 10px;
+            border: 2px solid transparent;
+            transition: all 0.1s ease;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-links .nav-link a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            border-color: rgba(0,0,0,0.5);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            transform: translate(-1px, -1px);
+            text-decoration: none;
+        }
+
+        .nav-links .nav-icons-divider {
+            display: none !important;
+        }
+
+        .dark-theme-toggle a {
+            padding: 7px 9px !important;
+            display: flex !important;
+            align-items: center !important;
+            border: 2px solid var(--accent-color) !important;
+        }
+
+        .dark-theme-toggle a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5) !important;
+        }
+
+        .header-shadow {
+            box-shadow: none !important;
+        }
+
+         
+
+        .nav-hamburger-list li a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 16px;
+            display: block;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list li a:hover {
+            background: var(--accent-color);
+            color: #0a0820;
+            border-color: rgba(0,0,0,0.4);
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list {
+            border-bottom: 3px solid var(--accent-color) !important;
         }
     </style>
 
@@ -21,30 +168,30 @@
     <meta name="description" content="Interests :: Computer Science → Mathematics   →  Cybersecurity → OK()">
     <meta name="keywords" content='blog, gokarna, hugo'>
 
-    <meta property="og:url" content="http://localhost:1313/404.html">
+    <meta property="og:url" content="https://gokarna-hugo.netlify.app/404.html">
     <meta property="og:type" content="website">
     <meta property="og:title" content="404 Page not found">
     <meta property="og:description" content="Interests :: Computer Science → Mathematics   →  Cybersecurity → OK()">
-    <meta property="og:image" content="http://localhost:1313/images/isaac.webp">
-    <meta property="og:image:secure_url" content="http://localhost:1313/images/isaac.webp">
+    <meta property="og:image" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
+    <meta property="og:image:secure_url" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="404 Page not found">
     <meta name="twitter:description" content="Interests :: Computer Science → Mathematics   →  Cybersecurity → OK()">
-    <meta property="twitter:domain" content="http://localhost:1313/404.html">
-    <meta property="twitter:url" content="http://localhost:1313/404.html">
-    <meta name="twitter:image" content="http://localhost:1313/images/isaac.webp">
+    <meta property="twitter:domain" content="https://gokarna-hugo.netlify.app/404.html">
+    <meta property="twitter:url" content="https://gokarna-hugo.netlify.app/404.html">
+    <meta name="twitter:image" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
 
     
-    <link rel="canonical" href="http://localhost:1313/404.html" />
+    <link rel="canonical" href="https://gokarna-hugo.netlify.app/404.html" />
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/normalize.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/main.css">
-    <link disabled id="dark-theme" rel="stylesheet" href="http://localhost:1313//css/dark.css">
+    <link rel="stylesheet" type="text/css" href="https://gokarna-hugo.netlify.app//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="https://gokarna-hugo.netlify.app//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="https://gokarna-hugo.netlify.app//css/dark.css">
 
-    <script src="http://localhost:1313//js/svg-injector.min.js"></script>
-    <script src="http://localhost:1313//js/feather-icons.min.js"></script>
-    <script src="http://localhost:1313//js/main.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/svg-injector.min.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/feather-icons.min.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/main.js"></script>
 
     
     
@@ -65,6 +212,30 @@
     </script>
   
     
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let lastScroll = 0;
+            const header = document.querySelector('.header');
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll <= 0) {
+                    header.classList.remove('hide');
+                    return;
+                }
+
+                if (currentScroll > lastScroll && !header.classList.contains('hide')) {
+                    header.classList.add('hide');
+                } else if (currentScroll < lastScroll && header.classList.contains('hide')) {
+                    header.classList.remove('hide');
+                }
+
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
 </head>
 <body>
         <script type="text/javascript">
@@ -75,32 +246,32 @@
 
         
         <div class="avatar">
-            <a href="http://localhost:1313/">
-                <img src="http://localhost:1313//images/isaac.webp" alt="avatar" />
+            <a href="https://gokarna-hugo.netlify.app/">
+                <img src="https://gokarna-hugo.netlify.app//images/isaac.webp" alt="avatar" />
             </a>
         </div>
         
 
         <div class="nav-title">
-            <a class="nav-brand" href="http://localhost:1313/">Thrypuro</a>
+            <a class="nav-brand" href="https://gokarna-hugo.netlify.app/">Thrypuro</a>
         </div>
 
         <div class="nav-links">
             
             <div class="nav-link">
-                <a href="http://localhost:1313/">λ    Home </a>
+                <a href="https://gokarna-hugo.netlify.app/">λ    Home </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/posts/">π  Posts </a>
+                <a href="https://gokarna-hugo.netlify.app/posts/">π  Posts </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                <a href="https://gokarna-hugo.netlify.app/projects/">Ψ Projects </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                <a href="https://gokarna-hugo.netlify.app/about-me/"> ϕ About </a>
             </div>
             
             <div class="nav-link">
@@ -127,19 +298,19 @@
             <ul class="nav-hamburger-list visibility-hidden">
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/">λ    Home </a>
+                    <a href="https://gokarna-hugo.netlify.app/">λ    Home </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/posts/">π  Posts </a>
+                    <a href="https://gokarna-hugo.netlify.app/posts/">π  Posts </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                    <a href="https://gokarna-hugo.netlify.app/projects/">Ψ Projects </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                    <a href="https://gokarna-hugo.netlify.app/about-me/"> ϕ About </a>
                 </li>
                 
                 <li class="nav-item">
@@ -162,7 +333,7 @@
 <div class="text-404">
   <h1 class="error-emoji"></h1>
   <h2>
-      404 ... This page does not exist, go <a href="http://localhost:1313/">home</a>
+      404 ... This page does not exist, go <a href="https://gokarna-hugo.netlify.app/">home</a>
   </h2>
 </div>
 <script>
@@ -180,7 +351,7 @@
     
     
 
-    <span>&copy; 2025 Thrypuro</span>
+    <span>&copy; 2026 Thrypuro</span>
  </footer>
 </body>
 </html>
