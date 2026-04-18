@@ -15,6 +15,7 @@ pygmentsStyle = "dracula"
   avatarURL = "/images/isaac.webp"
   AvatarAltText = "avatar"
   avatarSize = "size-l"
+  accentColor = "#d4a820"
 
   customHeadHTML = """
     <!-- KaTeX -->

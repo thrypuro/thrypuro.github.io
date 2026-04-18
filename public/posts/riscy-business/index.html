@@ -1,11 +1,158 @@
 <!DOCTYPE html>
-<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --accent-color: #FF4D4D;
+            --accent-color: #d4a820;
+        }
+    </style>
+
+    <style>
+         
+
+        .header {
+            border-bottom: 3px solid var(--accent-color);
+            height: 54px;
+            transition: transform 0.35s ease-in-out, box-shadow 0.3s ease-in-out !important;
+        }
+
+        .header.hide {
+            transform: translateY(-100%);
+        }
+
+        .header .header-nav {
+            display: flex !important;
+            align-items: center !important;
+            height: 54px !important;
+            padding: 0 18px;
+            margin-top: 0;
+        }
+
+        .header-nav .avatar {
+            float: none !important;
+            flex-shrink: 0;
+            height: auto;
+            margin-left: 0;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-nav .avatar img {
+            margin-top: 0 !important;
+        }
+
+        .header-nav .nav-title {
+            display: flex !important;
+            align-items: center !important;
+            height: auto !important;
+            padding-left: 0 !important;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .nav-title a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            line-height: 1;
+            height: auto !important;
+            text-shadow: 2px 2px 0 var(--accent-color);
+        }
+
+        .header-nav .nav-links {
+            display: flex !important;
+            align-items: center !important;
+            float: none !important;
+            margin-left: auto;
+            margin-right: 0;
+            line-height: 1;
+            gap: 2px;
+        }
+
+        .nav-links .nav-link {
+            display: flex !important;
+            align-items: center !important;
+            padding: 0;
+        }
+
+        @media only screen and (max-width: 820px) {
+            .nav-links .nav-link,
+            .nav-links .nav-icons-divider {
+                display: none !important;
+            }
+
+            #hamburger-menu-toggle {
+                display: flex !important;
+                align-items: center !important;
+            }
+        }
+
+        .nav-links .nav-link a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            padding: 8px 10px;
+            border: 2px solid transparent;
+            transition: all 0.1s ease;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-links .nav-link a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            border-color: rgba(0,0,0,0.5);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            transform: translate(-1px, -1px);
+            text-decoration: none;
+        }
+
+        .nav-links .nav-icons-divider {
+            display: none !important;
+        }
+
+        .dark-theme-toggle a {
+            padding: 7px 9px !important;
+            display: flex !important;
+            align-items: center !important;
+            border: 2px solid var(--accent-color) !important;
+        }
+
+        .dark-theme-toggle a:hover {
+            background: var(--accent-color) !important;
+            color: #0a0820 !important;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5) !important;
+        }
+
+        .header-shadow {
+            box-shadow: none !important;
+        }
+
+         
+
+        .nav-hamburger-list li a {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            padding: 16px;
+            display: block;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list li a:hover {
+            background: var(--accent-color);
+            color: #0a0820;
+            border-color: rgba(0,0,0,0.4);
+            text-decoration: none;
+        }
+
+        .nav-hamburger-list {
+            border-bottom: 3px solid var(--accent-color) !important;
         }
     </style>
 
@@ -21,30 +168,30 @@
     <meta name="description" content="This challenge was painful to implement, might as well document a writeup lol">
     <meta name="keywords" content='blog, gokarna, hugo'>
 
-    <meta property="og:url" content="http://localhost:1313/posts/riscy-business/">
+    <meta property="og:url" content="https://gokarna-hugo.netlify.app/posts/riscy-business/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Author writeup for pwnEd4 Riscy Business">
     <meta property="og:description" content="This challenge was painful to implement, might as well document a writeup lol">
-    <meta property="og:image" content="http://localhost:1313/images/isaac.webp">
-    <meta property="og:image:secure_url" content="http://localhost:1313/images/isaac.webp">
+    <meta property="og:image" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
+    <meta property="og:image:secure_url" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Author writeup for pwnEd4 Riscy Business">
     <meta name="twitter:description" content="This challenge was painful to implement, might as well document a writeup lol">
-    <meta property="twitter:domain" content="http://localhost:1313/posts/riscy-business/">
-    <meta property="twitter:url" content="http://localhost:1313/posts/riscy-business/">
-    <meta name="twitter:image" content="http://localhost:1313/images/isaac.webp">
+    <meta property="twitter:domain" content="https://gokarna-hugo.netlify.app/posts/riscy-business/">
+    <meta property="twitter:url" content="https://gokarna-hugo.netlify.app/posts/riscy-business/">
+    <meta name="twitter:image" content="https://gokarna-hugo.netlify.app/images/isaac.webp">
 
     
-    <link rel="canonical" href="http://localhost:1313/posts/riscy-business/" />
+    <link rel="canonical" href="https://gokarna-hugo.netlify.app/posts/riscy-business/" />
 
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/normalize.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" type="text/css" href="http://localhost:1313//css/main.css">
-    <link disabled id="dark-theme" rel="stylesheet" href="http://localhost:1313//css/dark.css">
+    <link rel="stylesheet" type="text/css" href="https://gokarna-hugo.netlify.app//css/normalize.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" type="text/css" href="https://gokarna-hugo.netlify.app//css/main.css">
+    <link disabled id="dark-theme" rel="stylesheet" href="https://gokarna-hugo.netlify.app//css/dark.css">
 
-    <script src="http://localhost:1313//js/svg-injector.min.js"></script>
-    <script src="http://localhost:1313//js/feather-icons.min.js"></script>
-    <script src="http://localhost:1313//js/main.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/svg-injector.min.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/feather-icons.min.js"></script>
+    <script src="https://gokarna-hugo.netlify.app//js/main.js"></script>
 
     
     
@@ -65,6 +212,30 @@
     </script>
   
     
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let lastScroll = 0;
+            const header = document.querySelector('.header');
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+
+                if (currentScroll <= 0) {
+                    header.classList.remove('hide');
+                    return;
+                }
+
+                if (currentScroll > lastScroll && !header.classList.contains('hide')) {
+                    header.classList.add('hide');
+                } else if (currentScroll < lastScroll && header.classList.contains('hide')) {
+                    header.classList.remove('hide');
+                }
+
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
 </head>
 <body>
         <script type="text/javascript">
@@ -75,32 +246,32 @@
 
         
         <div class="avatar">
-            <a href="http://localhost:1313/">
-                <img src="http://localhost:1313//images/isaac.webp" alt="avatar" />
+            <a href="https://gokarna-hugo.netlify.app/">
+                <img src="https://gokarna-hugo.netlify.app//images/isaac.webp" alt="avatar" />
             </a>
         </div>
         
 
         <div class="nav-title">
-            <a class="nav-brand" href="http://localhost:1313/">Thrypuro</a>
+            <a class="nav-brand" href="https://gokarna-hugo.netlify.app/">Thrypuro</a>
         </div>
 
         <div class="nav-links">
             
             <div class="nav-link">
-                <a href="http://localhost:1313/">λ    Home </a>
+                <a href="https://gokarna-hugo.netlify.app/">λ    Home </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/posts/">π  Posts </a>
+                <a href="https://gokarna-hugo.netlify.app/posts/">π  Posts </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                <a href="https://gokarna-hugo.netlify.app/projects/">Ψ Projects </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                <a href="https://gokarna-hugo.netlify.app/about-me/"> ϕ About </a>
             </div>
             
             <div class="nav-link">
@@ -127,19 +298,19 @@
             <ul class="nav-hamburger-list visibility-hidden">
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/">λ    Home </a>
+                    <a href="https://gokarna-hugo.netlify.app/">λ    Home </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/posts/">π  Posts </a>
+                    <a href="https://gokarna-hugo.netlify.app/posts/">π  Posts </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/projects/">Ψ Projects </a>
+                    <a href="https://gokarna-hugo.netlify.app/projects/">Ψ Projects </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:1313/about-me/"> ϕ About </a>
+                    <a href="https://gokarna-hugo.netlify.app/about-me/"> ϕ About </a>
                 </li>
                 
                 <li class="nav-item">
@@ -203,7 +374,7 @@ Main function
 </h2>
 <div id="outline-text-headline-3" class="outline-text-2">
 <div class="src src-c">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">main</span>()
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;Give me the flag and I&#39;ll run my RISCY flag-checker:&#34;</span>);
 </span></span><span style="display:flex;"><span>	<span style="color:#8be9fd">char</span> input[<span style="color:#bd93f9">50</span>];
@@ -216,7 +387,7 @@ Main function
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> input_flag[<span style="color:#bd93f9">8</span>];
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// convert every 7 bytes to a little endian uint64_t
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
+</span></span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
 </span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span>);
 </span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">1</span>);
 </span></span><span style="display:flex;"><span>    input_flag[<span style="color:#bd93f9">0</span>] <span style="color:#ff79c6">+=</span> (<span style="color:#8be9fd">uint64_t</span>)input[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">+</span> <span style="color:#bd93f9">2</span>] <span style="color:#ff79c6">&lt;&lt;</span> (<span style="color:#bd93f9">8</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">2</span>);
@@ -236,15 +407,15 @@ After all the characters of the flag have been converted into 64 bit numbers.</p
 <p>
 We see the comparison here</p>
 <div class="src src-c">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i<span style="color:#ff79c6">&lt;</span><span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>){
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i<span style="color:#ff79c6">&lt;</span><span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>){
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;Matrix %u  for exp %u : \n &#34; , input_flag[i], 2);
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l  <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
+</span></span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l  <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">array_exp</span>(beeg_yoshi,input_flag[i],p , l );
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;Matrix %u  for exp %llu : \n &#34; , i, input_flag[i]);
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// ^ initial
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#8be9fd">uint64_t</span> l2 [<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>];
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// ^ initial
+</span></span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">uint64_t</span> l2 [<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>];
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// print l
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>         <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;{&#34;</span>);
+</span></span></span><span style="display:flex;"><span>         <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;{&#34;</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#50fa7b">printf</span>(<span style="color:#f1fa8c">&#34;{&#34;</span>);
 </span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
@@ -275,8 +446,8 @@ Array Exponentiation??? that&#39;s not a group??
 </h2>
 <div id="outline-text-headline-4" class="outline-text-2">
 <div class="src src-c">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#6272a4">// count bits a uint64_t
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">count_bits</span>(<span style="color:#8be9fd">uint64_t</span> n)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#6272a4">// count bits a uint64_t
+</span></span></span><span style="display:flex;"><span><span style="color:#8be9fd">int</span> <span style="color:#50fa7b">count_bits</span>(<span style="color:#8be9fd">uint64_t</span> n)
 </span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> count <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">while</span> (n)
@@ -290,8 +461,8 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd">void</span> <span style="color:#50fa7b">array_exp</span>( <span style="color:#8be9fd">uint64_t</span> l0[<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>], <span style="color:#8be9fd">uint64_t</span> e ,<span style="color:#8be9fd">uint64_t</span> p , <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l) {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// uint64_t l = l0;
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#6272a4">// ^ deep copy l0 to l
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// ^ deep copy l0 to l
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>            l[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>i <span style="color:#ff79c6">+</span> j] <span style="color:#ff79c6">=</span> l0[i][j];
@@ -300,7 +471,7 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> l4[<span style="color:#bd93f9">7</span>][<span style="color:#bd93f9">7</span>];
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// copy identity matrix to l4
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> i <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; i <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; i<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> j <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; j <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; j<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">if</span> (i <span style="color:#ff79c6">==</span> j) {
 </span></span><span style="display:flex;"><span>                l4[i][j] <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>;
@@ -310,7 +481,7 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// printf(&#34;%d&#34;, count_bits(e));
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#8be9fd">int</span> exp <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">count_bits</span>(e);
+</span></span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">int</span> exp <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">count_bits</span>(e);
 </span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">while</span> (e<span style="color:#ff79c6">&gt;</span><span style="color:#bd93f9">1</span>) {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> ( e <span style="color:#ff79c6">%</span> <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">1</span> ) {
@@ -319,8 +490,8 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// l = array_mul(l,l0,p,7,7,7);
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#6272a4">// deep copy l2 to l
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span></span><span style="display:flex;"><span>            <span style="color:#6272a4">// deep copy l2 to l
+</span></span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>                <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>                    l4[ii][k] <span style="color:#ff79c6">=</span> l2[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
 </span></span><span style="display:flex;"><span>                }
@@ -331,15 +502,15 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span>        <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l1 <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#50fa7b">array_mul</span>(l,l,l1,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// printf(&#34;\n exp is %d \n&#34;, e);
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// print l1 to see if it is correct
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// for (int k = 0; k &lt; 7; k++) {
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//     for (int jj = 0; jj &lt; 7; jj++) {
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//         printf(&#34;%llu ,  &#34;, *l0[7*k + jj]);
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">//     }
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#6272a4">// }
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// print l1 to see if it is correct
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// for (int k = 0; k &lt; 7; k++) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">//     for (int jj = 0; jj &lt; 7; jj++) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">//         printf(&#34;%llu ,  &#34;, *l0[7*k + jj]);
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">//     }
+</span></span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// }
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#6272a4">// deep copy l1 to l
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>                l[ <span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k ] <span style="color:#ff79c6">=</span> l1[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
 </span></span><span style="display:flex;"><span>            }
@@ -351,9 +522,9 @@ Array Exponentiation??? that&#39;s not a group??
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#8be9fd">uint64_t</span> <span style="color:#ff79c6">*</span> l3 <span style="color:#ff79c6">=</span> <span style="color:#50fa7b">malloc</span>(<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span><span style="color:#ff79c6">sizeof</span>(<span style="color:#8be9fd">uint64_t</span>));
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// matrix multiply l and l4
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>    <span style="color:#50fa7b">array_mul</span>(<span style="color:#ff79c6">*</span>l4,l,l3,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
+</span></span></span><span style="display:flex;"><span>    <span style="color:#50fa7b">array_mul</span>(<span style="color:#ff79c6">*</span>l4,l,l3,p ,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">7</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#6272a4">// deep copy l1 to l
-</span></span></span><span style="display:flex;"><span><span style="color:#6272a4"></span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> ii <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; ii <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; ii<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd">int</span> k <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>; k <span style="color:#ff79c6">&lt;</span> <span style="color:#bd93f9">7</span>; k<span style="color:#ff79c6">++</span>) {
 </span></span><span style="display:flex;"><span>                l[ <span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k ] <span style="color:#ff79c6">=</span> l3[<span style="color:#bd93f9">7</span><span style="color:#ff79c6">*</span>ii <span style="color:#ff79c6">+</span> k];
 </span></span><span style="display:flex;"><span>            }
@@ -449,7 +620,7 @@ where, pk is the encryption key.</p>
 <p>
 We can easily map this in sage like this :</p>
 <div class="src src-python">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
 </span></span><span style="display:flex;"><span> B <span style="color:#ff79c6">=</span> [[<span style="color:#bd93f9">375566877478545277</span> , <span style="color:#bd93f9">2963470066555387146</span> , <span style="color:#bd93f9">1034431732462250314</span> , <span style="color:#bd93f9">1096052522777621704</span> , <span style="color:#bd93f9">966726340814324260</span> , <span style="color:#bd93f9">2312808208602313728</span> , <span style="color:#bd93f9">2907804859883349555</span>], [<span style="color:#bd93f9">2949062098533289437</span> , <span style="color:#bd93f9">1957129311596127718</span> , <span style="color:#bd93f9">2456012614040215831</span> , <span style="color:#bd93f9">5994564119965166</span> , <span style="color:#bd93f9">548816838846919710</span> , <span style="color:#bd93f9">2380634432242336228</span> , <span style="color:#bd93f9">1748601951870102145</span>] , [<span style="color:#bd93f9">472019223552114398</span> , <span style="color:#bd93f9">1518737730593601700</span> , <span style="color:#bd93f9">3390004047774294419</span> , <span style="color:#bd93f9">1805625029469648044</span> , <span style="color:#bd93f9">598679125429739514</span> , <span style="color:#bd93f9">1665597553982367426</span> , <span style="color:#bd93f9">1285277968503540042</span>] , [<span style="color:#bd93f9">2961189828386439397</span> , <span style="color:#bd93f9">866999723809507887</span> , <span style="color:#bd93f9">3391629504755701335</span> , <span style="color:#bd93f9">3428316069373416911</span> , <span style="color:#bd93f9">874902437344635643</span> , <span style="color:#bd93f9">3068095183648393752</span> , <span style="color:#bd93f9">1261189746469056227</span>] , [<span style="color:#bd93f9">613435458185279999</span> , <span style="color:#bd93f9">2456249157520398525</span> , <span style="color:#bd93f9">2951312215556724256</span> , <span style="color:#bd93f9">3046841459564705313</span> , <span style="color:#bd93f9">576553155703453927</span> , <span style="color:#bd93f9">86910304885107406</span> , <span style="color:#bd93f9">2871479624587693317</span>] , [<span style="color:#bd93f9">2161728794373590728</span> , <span style="color:#bd93f9">1367427337525595116</span> , <span style="color:#bd93f9">1686338019966952225</span> , <span style="color:#bd93f9">1563871609089857931</span> , <span style="color:#bd93f9">270876372562903161</span> , <span style="color:#bd93f9">943475285994326381</span> , <span style="color:#bd93f9">2811154736940917695</span>] , [<span style="color:#bd93f9">2300315486841274571</span> , <span style="color:#bd93f9">1589959687645788693</span> , <span style="color:#bd93f9">453888117229900400</span> , <span style="color:#bd93f9">2983005388551658162</span> , <span style="color:#bd93f9">37531775908612719</span> , <span style="color:#bd93f9">1670207313296143478</span> , <span style="color:#bd93f9">937106862855613514</span>] ];
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> Matrix(GF(p),A)
@@ -460,7 +631,7 @@ We can easily map this in sage like this :</p>
 <p>
 So, we notice that the exponents are very small. This means we can easily use some sage default discrete_log function to get the exponents and finally get the flag. The final sage script would look like this :</p>
 <div class="src src-python">
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [[<span style="color:#ff79c6">..</span>],<span style="color:#ff79c6">..</span>] <span style="color:#6272a4"># snipped</span>
 </span></span><span style="display:flex;"><span> B <span style="color:#ff79c6">=</span> [[<span style="color:#bd93f9">375566877478545277</span> , <span style="color:#bd93f9">2963470066555387146</span> , <span style="color:#bd93f9">1034431732462250314</span> , <span style="color:#bd93f9">1096052522777621704</span> , <span style="color:#bd93f9">966726340814324260</span> , <span style="color:#bd93f9">2312808208602313728</span> , <span style="color:#bd93f9">2907804859883349555</span>], [<span style="color:#bd93f9">2949062098533289437</span> , <span style="color:#bd93f9">1957129311596127718</span> , <span style="color:#bd93f9">2456012614040215831</span> , <span style="color:#bd93f9">5994564119965166</span> , <span style="color:#bd93f9">548816838846919710</span> , <span style="color:#bd93f9">2380634432242336228</span> , <span style="color:#bd93f9">1748601951870102145</span>] , [<span style="color:#bd93f9">472019223552114398</span> , <span style="color:#bd93f9">1518737730593601700</span> , <span style="color:#bd93f9">3390004047774294419</span> , <span style="color:#bd93f9">1805625029469648044</span> , <span style="color:#bd93f9">598679125429739514</span> , <span style="color:#bd93f9">1665597553982367426</span> , <span style="color:#bd93f9">1285277968503540042</span>] , [<span style="color:#bd93f9">2961189828386439397</span> , <span style="color:#bd93f9">866999723809507887</span> , <span style="color:#bd93f9">3391629504755701335</span> , <span style="color:#bd93f9">3428316069373416911</span> , <span style="color:#bd93f9">874902437344635643</span> , <span style="color:#bd93f9">3068095183648393752</span> , <span style="color:#bd93f9">1261189746469056227</span>] , [<span style="color:#bd93f9">613435458185279999</span> , <span style="color:#bd93f9">2456249157520398525</span> , <span style="color:#bd93f9">2951312215556724256</span> , <span style="color:#bd93f9">3046841459564705313</span> , <span style="color:#bd93f9">576553155703453927</span> , <span style="color:#bd93f9">86910304885107406</span> , <span style="color:#bd93f9">2871479624587693317</span>] , [<span style="color:#bd93f9">2161728794373590728</span> , <span style="color:#bd93f9">1367427337525595116</span> , <span style="color:#bd93f9">1686338019966952225</span> , <span style="color:#bd93f9">1563871609089857931</span> , <span style="color:#bd93f9">270876372562903161</span> , <span style="color:#bd93f9">943475285994326381</span> , <span style="color:#bd93f9">2811154736940917695</span>] , [<span style="color:#bd93f9">2300315486841274571</span> , <span style="color:#bd93f9">1589959687645788693</span> , <span style="color:#bd93f9">453888117229900400</span> , <span style="color:#bd93f9">2983005388551658162</span> , <span style="color:#bd93f9">37531775908612719</span> , <span style="color:#bd93f9">1670207313296143478</span> , <span style="color:#bd93f9">937106862855613514</span>] ];
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> Matrix(GF(p),A)
@@ -506,7 +677,7 @@ This challenge was fun to make, especially playing with risc-v tool chain and do
     
     
 
-    <span>&copy; 2025 Thrypuro</span>
+    <span>&copy; 2026 Thrypuro</span>
  </footer>
 </body>
 </html>

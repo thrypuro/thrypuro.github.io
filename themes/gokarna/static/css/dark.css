@@ -1,8 +1,8 @@
 :root {
   --dark-primary-color: 14, 19, 26;
-  --dark-secondary-color: #2d333b;
-  --dark-tertiary-color: #646464;
-  --dark-text-color: white;
+  --dark-secondary-color: #2a1a50;
+  --dark-tertiary-color: #1e103a;
+  --dark-text-color: #f0e4b0;
 }
 
 html {
@@ -12,11 +12,13 @@ html {
 }
 
 .header {
-  background-color: rgba(var(--dark-primary-color), 0.95);
+  background: rgba(10, 8, 40, 0.90) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .nav-hamburger-list {
-  background: rgba(var(--dark-primary-color), 1);
+  background: rgba(10, 8, 40, 0.97) !important;
 }
 
 .nav-links .nav-icons-divider {
@@ -24,12 +26,17 @@ html {
 }
 
 a:hover .feather-moon {
-  fill: white;
-  color: white;
+  fill: var(--dark-text-color);
+  color: var(--dark-text-color);
+}
+
+a:hover .feather-sun {
+  fill: var(--dark-text-color);
+  color: var(--dark-text-color);
 }
 
 .social-icons-list .social-icon,
-.social-icons-list .social-icon a:visited  {
+.social-icons-list .social-icon a:visited {
   fill: var(--dark-text-color);
 }
 
@@ -37,9 +44,13 @@ a:hover .feather-moon {
   fill: var(--accent-color);
 }
 
+.post-tags .post-tag {
+  border-color: rgba(212, 168, 32, 0.5);
+}
+
 .post-tags .post-tag:hover {
-  background-color: var(--dark-text-color);
-  color: rgb(var(--dark-primary-color));
+  background-color: var(--accent-color);
+  color: #0a0820;
 }
 
 .tags-list .post-tags .post-tag a .tag-posts-count {
@@ -47,21 +58,21 @@ a:hover .feather-moon {
 }
 
 .tags-list .post-tags .post-tag:hover a .tag-posts-count {
-  background-color: var(--dark-text-color);
-  color: rgb(var(--dark-primary-color));
+  background-color: var(--accent-color);
+  color: #0a0820;
 }
 
 .footer {
-  border-top-color: var(--dark-header-bg-color);
+  color: #a08840;
 }
 
 blockquote {
-  color: darkgrey;
-  border-left-color: var(--dark-secondary-color);
+  color: #c0aa70;
+  border-left-color: rgba(212, 168, 32, 0.4);
 }
 
 hr {
-  color: var(--dark-secondary-color);
+  color: rgba(212, 168, 32, 0.3);
 }
 
 table thead {
@@ -70,28 +81,20 @@ table thead {
 
 table td,
 table th {
-  border-bottom-color: var(--dark-secondary-color);
+  border-bottom-color: rgba(212, 168, 32, 0.2);
 }
 
 code,
 pre {
-  background-color: var(--dark-secondary-color) !important;
+  background-color: rgba(8, 4, 24, 0.80) !important;
+  border: 1px solid rgba(212, 168, 32, 0.2);
 }
 
 :not(pre) > code {
-  background-color: var(--dark-tertiary-color) !important;
-  color: var(--dark-text-color);
+  background-color: rgba(42, 26, 80, 0.80) !important;
+  color: #f0c840;
 }
 
 .header-shadow {
-  box-shadow: rgb(33, 38, 45) 0px -1px 0px 0px inset;
+  box-shadow: 0 2px 20px rgba(212, 168, 32, 0.15) !important;
 }
-
-/* TODO: Check if this is needed or not */
-/* 
-img,
-video {
-  filter: hue-rotate(180deg) contrast(100%) invert(100%);
-  -webkit-filter: hue-rotate(180deg) contrast(100%) invert(100%);
-} 
-*/
