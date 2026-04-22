@@ -2,33 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://gokarna-hugo.netlify.app/posts/rop/</loc>
+    <loc>http://localhost:1313/posts/rop/</loc>
     <lastmod>2023-05-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/posts/htb_2021/</loc>
+    <loc>http://localhost:1313/posts/htb_2021/</loc>
     <lastmod>2021-09-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/posts/riscy-business/</loc>
+    <loc>http://localhost:1313/posts/riscy-business/</loc>
     <lastmod>2023-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/posts/c0mm0n_p0lynomial/</loc>
+    <loc>http://localhost:1313/posts/c0mm0n_p0lynomial/</loc>
     <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/posts/fhe/</loc>
+    <loc>http://localhost:1313/posts/fhe/</loc>
     <lastmod>2025-09-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-09-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-09-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/projects/</loc>
+    <loc>http://localhost:1313/projects/</loc>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
   </url><url>
-    <loc>https://gokarna-hugo.netlify.app/about-me/</loc>
+    <loc>http://localhost:1313/about-me/</loc>
   </url>
 </urlset>
