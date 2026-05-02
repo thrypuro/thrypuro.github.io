@@ -19,7 +19,6 @@ Look at edwards curve Doubling formula on wikipedia
 
 https://en.wikipedia.org/wiki/Edwards_curve
 
-<img src="https://cdn.discordapp.com/attachments/668542758365167669/952262971063689246/unknown.png" alt="wiki" /> 
 
 Notice the first formula for doubling, 
 
