@@ -1,4 +1,4 @@
-baseURL = "https://gokarna-hugo.netlify.app"
+baseURL = "https://thrypu.ro/"
 title = "Thrypuro"
 theme = "gokarna"
 languageCode = "en"

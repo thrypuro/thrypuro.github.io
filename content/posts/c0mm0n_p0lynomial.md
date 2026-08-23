@@ -13,7 +13,6 @@ A multivariate version of this would be a fun to make in the future.
 # c0mm0n_polynomial
 
 
-
 Look at edwards curve Doubling formula on wikipedia 
 
 

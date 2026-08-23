@@ -45,7 +45,9 @@ The concept of transciphering is wacky but simple. If we can run arbitrary funct
 
 We could get a sort of composable encryption. Where there encryption done on the function creating Look Up Tables and Programmable Bootstrapping. 
 
-Why is this a property that could be desirable? 
+Why is this a property that could be desirable?
+
+Well, say you have a 
 
 
 ## What will we be implementing?
@@ -56,4 +58,5 @@ We will implement this simple asymmetric key algorithm in TFHE-rs known [LowMC](
 
 
 
-## WIP (keep myself accountable)
+## Personal opinions on FHE
+I think the field itself is really cool, but I worry it's not feasible in it's usecases currently. Almost all progra

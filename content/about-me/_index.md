@@ -18,4 +18,4 @@ You can also find me spending too time on challenge website like :
 - RET2 Labs wargames  
 - HacktheBox
 
-When I am not in front of a terminal, I enjoy playing video-games, cycling, ocassionally going to the gym and reading fantasy-fiction
+When I am not in front of a terminal, I enjoy playing video-games, cycling, ocassionally going to the gym, playing tennis and  reading fantasy. 
