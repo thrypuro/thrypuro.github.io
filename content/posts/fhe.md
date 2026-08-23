@@ -2,9 +2,12 @@
 weight: 30
 title: Transciphering in Fully Homomorphic Encryption
 description: Guide to FHE
-date: 2025-09-03
+date: 2026-08-01
 type: post
 ---
+## Warning
+This post is in draft right now, I am rewriting the post to do the code for the paper originally that we were studying in LattiGo because it's closer to the scheme and TFHE-rs has a lot of high level IR shenanigans that makes it trivial to write applications in FHE.
+
 ## Context (Can skip this)
 I had a chance to work on FHE related technology stuff for a year, I learnt a lot, ultimately I decided it wasn't the field I was fully interested in.
 
@@ -47,16 +50,13 @@ We could get a sort of composable encryption. Where there encryption done on the
 
 Why is this a property that could be desirable?
 
-Well, say you have a 
+One of the most dangerous attacks against a symmetric key cipher is side channel attacks. With low powered IoT (Internet of Things) devices this is also a problem as 
 
 
 ## What will we be implementing?
-We will implement this simple asymmetric key algorithm in TFHE-rs known [LowMC](https://eprint.iacr.org/2016/687.pdf) . We will also for the fun of it also implement some other simple ciphers in TFHErs like caesar's cipher. 
+We will implement this simple asymmetric key algorithm in Lattigo called [LowMC](https://eprint.iacr.org/2016/687.pdf). We will also for the fun of it also implement some other simple ciphers in TFHErs like caesar's cipher. 
 
 
 ## What is happening behind the scenes?
 
 
-
-## Personal opinions on FHE
-I think the field itself is really cool, but I worry it's not feasible in it's usecases currently. Almost all progra
